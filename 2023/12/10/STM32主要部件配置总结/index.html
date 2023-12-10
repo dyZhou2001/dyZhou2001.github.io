@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <!-- SEO相关 -->
   
-  <link rel="canonical" href="https://dyzhou2001.github.io/about/"/>
+  <link rel="canonical" href="https://dyzhou2001.github.io/2023/12/10/stm32主要部件配置总结/"/>
   <!-- 渲染优化 -->
     <meta http-equiv='x-dns-prefetch-control' content='on' />
       <link rel='dns-prefetch' href='https://unpkg.com'>
@@ -33,19 +33,19 @@
 
   <!-- feed -->
   <!-- 页面元数据 -->
-  <title>关于 - 碎流岛</title>
+  <title>STM32主要部件配置总结 - 碎流岛</title>
   <meta name="keywords" content="null">
-  <meta desc name="description" content="记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极 - Young Joe - 碎流岛">
+  <meta desc name="description" content="总结一些基本的知识，包括时钟树、外设等，主要说明需要配置的参数以及配置的方法。 - Young Joe - 碎流岛">
   
-<meta property="og:type" content="website">
-<meta property="og:title" content="关于">
-<meta property="og:url" content="https://dyzhou2001.github.io/about/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32主要部件配置总结">
+<meta property="og:url" content="https://dyzhou2001.github.io/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="碎流岛">
-<meta property="og:description" content="本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明来自Young’s blog。">
+<meta property="og:description" content="总结一些基本的知识，包括时钟树、外设等，主要说明需要配置的参数以及配置的方法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-<meta property="article:published_time" content="2023-12-02T09:02:22.000Z">
-<meta property="article:modified_time" content="2023-12-02T09:13:20.991Z">
+<meta property="article:published_time" content="2023-12-10T10:39:41.000Z">
+<meta property="article:modified_time" content="2023-12-10T12:16:39.615Z">
 <meta property="article:author" content="Young Joe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
@@ -2624,7 +2624,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
       <!-- see: /layout/_partial/scripts/_ctrl/coverCtrl.ejs -->
-      <div id="none" class='cover-wrapper page dock' style="display: none;">
+      <div id="none" class='cover-wrapper post dock' style="display: none;">
         
   <div class='cover-bg lazyload placeholder' data-bg="https://wallpaperswide.com/download/beautiful_island_4-wallpaper-3554x1999.jpg"></div>
 
@@ -2699,8 +2699,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="body-wrapper">
           
 <div id="l_main" class=''>
-  <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-page" id="page" itemscope itemprop="blogPost">
-  <link itemprop="mainEntityOfPage" href="https://dyzhou2001.github.io/about/index.html">
+  <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
+  <link itemprop="mainEntityOfPage" href="https://dyzhou2001.github.io/2023/12/10/STM32主要部件配置总结/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="碎流岛">
   </span>
@@ -2721,7 +2721,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       <h1 class="title" itemprop="name headline">
-        关于
+        STM32主要部件配置总结
       </h1>
       <div class='new-meta-box'>
         
@@ -2742,10 +2742,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2023-12-02T17:02:22+08:00">
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2023-12-10T18:39:41+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2023年12月2日</p>
+    <p>发布于：2023年12月10日</p>
   </a>
 </div>
 
@@ -2768,10 +2768,128 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
-    <p>本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明来自<a href="https://dyzhou2001.github.io/">Young’s blog</a>。</p>
+    <h2 id="时钟系统"><a href="#时钟系统" class="headerlink" title="时钟系统"></a>时钟系统</h2><h3 id="时钟系统介绍"><a href="#时钟系统介绍" class="headerlink" title="时钟系统介绍"></a>时钟系统介绍</h3><p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/1.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="STM32时钟树"></p>
+<p>STM32有外部和内部时钟，每种又分为告诉时钟和低速时钟，即HSE、HSI、LSE、LSI。</p>
+<p>低速时钟主要提供给RTC（实时时钟）和独立看门狗使用，一般主要使用主要使用HSE和HSI。</p>
+<p>时钟在芯片刚上电的时候，默认使用内部高速时钟。而外部时钟信号是由外部的晶振输入的，在精度和稳定性上都有很大优势，所以上电之后我们再通过软件配置，转而采用外部时钟信号。</p>
+<p>所以，STM32有以下4个时钟源：</p>
+<p>​	1）高速外部时钟（HSE）：以外部晶振作为时钟源，晶振频率可取范围为4～16 MHz，我们一般采用8 MHz的晶振。</p>
+<p>​	2）高速内部时钟（HSI）：由内部RC振荡器产生，频率为8 MHz，但不稳定。</p>
+<p>​	3）低速外部时钟（LSE）：以外部晶振作为时钟源，主要提供给实时时钟模块，所以一般采用32.768 kHz。配套STM32实验板上用的是32.768 kHz、6p负载规格的晶振。</p>
+<p>​	4）低速内部时钟（LSI）：由内部RC振荡器产生，也主要提供给实时时钟模块，频率大约为40 kHz。</p>
+<h3 id="时钟走向举例"><a href="#时钟走向举例" class="headerlink" title="时钟走向举例"></a>时钟走向举例</h3><p>以最常用的高速外部时钟（HSE）为例分析，首先假定我们在外部提供的晶振的频率为8 MHz。</p>
+<ul>
+<li><p>1）从左端的OSC_OUT和OSC_IN开始，这两个引脚分别接到外部晶振的两端。</p>
+</li>
+<li><p>2）8 MHz的时钟遇到了第一个分频器PLLXTPRE（HSE divider forPLL entry），在这个分频器中，可以通过寄存器配置，选择它的输出。它的输出时钟可以是对输入时钟的二分频或不分频。本例中，我们选择不分频，所以经过PLLXTPRE后，还是8MHz的时钟。</p>
+</li>
+<li><p>3）8MHz的时钟遇到开关PLLSRC（PLL entry clock source），我们可以选择其输出，输出为外部高速时钟（HSE）或是内部高速时钟（HSI）。这里选择输出为HSE，接着遇到锁相环PLL，具有倍频作用，在这里我们可以输入倍频因子PLLMUL（PLL multiplicationfactor）。经过PLL的时钟称为PLLCLK。倍频因子我们设定为9倍频，也就是说，经过PLL之后，我们的时钟从原来8MHz的HSE变为72 MHz的PLLCLK。</p>
+</li>
+<li><p>4）紧接着又遇到了一个开关SW，经过这个开关之后就是STM32的系统时钟（SYSCLK）了。通过这个开关，可以切换SYSCLK的时钟源，可以选择HSI、PLLCLK或HSE。我们选择PLLCLK时钟，所以SYSCLK就为72 MHz了。</p>
+</li>
+<li><p>5）PLLCLK在输入到SW前，还流向了USB预分频器，这个分频器输出为USB外设的时钟（USBCLK）。</p>
+</li>
+<li><p>6）回到SYSCLK, SYSCLK经过AHB预分频器，分频后再输入到其他外设。如输出到称为HCLK、FCLK的时钟，还直接输出到SDIO外设的SDIOCLK时钟、存储器控制器FSMC的FSMCCLK时钟，以及作为APB1、APB2的预分频器的输入端。本例设置AHB预分频器不分频，即输出的频率为72 MHz。</p>
+</li>
+<li><p>7）GPIO外设是挂载在APB2总线上的，APB2的时钟是APB2预分频器的输出，而APB2预分频器的时钟来源是AHB预分频器。因此，把APB2预分频器设置为不分频，我们就可以得到GPIO外设的时钟也等于HCLK，即72 MHz。</p>
+<p><strong>使用外设时一定要记得开启（配置）时钟（RCC）</strong></p>
+<h2 id="nvic中断控制器"><a href="#NVIC中断控制器" class="headerlink" title="NVIC中断控制器"></a>NVIC中断控制器</h2><h3 id="中断控制器介绍"><a href="#中断控制器介绍" class="headerlink" title="中断控制器介绍"></a>中断控制器介绍</h3><p>见文知意，NVIC负责控制中断的响应，不可屏蔽中断（NMI）和外部中断都由它来处理。</p>
+<p>需要配置的主要参数有：</p>
+<ul>
+<li><p>中断向量的名称（谁来触发中断，操作中断屏蔽寄存器相应位置写1）</p>
+</li>
+<li><p>使能还是关闭中断向量</p>
+</li>
+<li><p>响应优先级</p>
+</li>
+<li><p>抢占优先级（主要）</p>
+</li>
+</ul>
+<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/2.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/2.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="2"></p>
+<p>19个中断线，其中前16个代表不同的IO口，PA0、PB0、PC0……共用一条线。</p>
+<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/3.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="3"></p>
+<p>事件信号由其他外设处理，中断信号由中断函数处理。</p>
+<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/4.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/4.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="4"></p>
+<p>19条线由相同的寄存器控制，每个寄存器的不同位控制不同的中断线。</p>
+<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/5.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="5"></p>
+<p>与门使得中断屏蔽寄存器可以控制中断是否被触发。</p>
+<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/6.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/6.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="6"></p>
+<p>中断名称指向处理函数。其中EXTI5-9，10-15共用一个处理函数。</p>
+<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/7.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="7"></p>
+<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/8.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/8.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="8"></p>
+<p><img src="/.png" class="lazyload" data-srcset="/.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<p>NVIC能配置的是16种中断向量，而不是16个，当工程中有超过16个中断向量时，必然有两个以上的中断向量是使用相同的中断种类，而具有相同中断种类的中断向量不能互相嵌套。</p>
+<h3 id="配置外部中断"><a href="#配置外部中断" class="headerlink" title="配置外部中断"></a>配置外部中断</h3><ul>
+<li><p>1）使能EXTIx线的时钟和第二功能AFIO时钟。</p>
+</li>
+<li><p>2）配置EXTIx线的中断优先级。</p>
+</li>
+<li><p>3）配置EXTI中断线I&#x2F;O。</p>
+</li>
+<li><p>4）选定要配置为EXTI的I&#x2F;O口线和I&#x2F;O口的工作模式。</p>
+</li>
+<li><p>5）EXTI中断线工作模式配置。</p>
+<ul>
+<li>配置EXTI_Line，查看IO口对应的EXTIx。</li>
+<li>设置模式可以选择Interrupt或者Event。</li>
+<li>设置上升沿还是下降沿触发</li>
+<li>使能</li>
+</ul>
+</li>
+</ul>
+<h3 id="afio"><a href="#AFIO" class="headerlink" title="AFIO"></a>AFIO</h3><p>AFIO（alternate-function I&#x2F;O），指GPIO端口的复用功能，GPIO除了用作普通的输入输出（主功能），还可以作为片上外设的复用输入输出，如串口、ADC，这些就是复用功能。大多数GPIO都有一个默认复用功能，有的GPIO还有重映射功能。重映射功能是指把原来属于A引脚的默认复用功能，转移到B引脚进行使用，前提是B引脚具有这个重映射功能。当把GPIO用作EXTI外部中断或使用重映射功能的时候，必须开启AFIO时钟，而在使用默认复用功能的时候，就不必开启AFIO时钟了。本章主要讲NVIC外部中断，所以需要开启AFIO时钟。用RCC。</p>
+<p>对于外部中断来说只要知道需要开启AFIO时钟就可以了。</p>
+<p>AFIO还可以对终端端口有选择功能。如PA0和PB0冲突了，则由AFIO选择传入哪个中断。AFIO还可以控制端口复用功能。</p>
+<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/9.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/9.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="9"></p>
+<h2 id="串口通信"><a href="#串口通信" class="headerlink" title="串口通信"></a>串口通信</h2><h3 id="异步串口通信协议"><a href="#异步串口通信协议" class="headerlink" title="异步串口通信协议"></a>异步串口通信协议</h3><p>STM32的串口非常强大，它不仅支持最基本的通用串口同步、异步通信，还具有LIN总线功能（局域互联网）、IRDA功能（红外通信）、SmartCard功能。</p>
+<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/10.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/10.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="10"></p>
+<p>要配置串口通信，至少要设置以下几个参数：字长（一次传送的数据长度）、波特率（每秒传输的数据位数）、奇偶校验位，还有停止位。</p>
+<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/11.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/11.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="11"></p>
+<p>如果使用PC接法，板子与PC之间接法相同，通信使用交叉线；两个相同板子之间接法也相同，通信也是<strong>使用交叉线</strong>。</p>
+<h3 id="数据传输过程"><a href="#数据传输过程" class="headerlink" title="数据传输过程"></a>数据传输过程</h3><p>需要发送数据时，内核或DMA外设（一种数据传输方式，在第10章介绍）把数据从内存（变量）写入到发送数据寄存器TDR后，发送控制器将适时地自动把数据从TDR加载到发送移位寄存器，然后通过串口线Tx，把数据一位一位地发送出去，当数据从TDR转移到移位寄存器时，会产生发送寄存器TDR已空事件TXE，当数据从移位寄存器全部发送出去时，会产生数据发送完成事件TC，这些事件可以在状态寄存器中查询到。而接收数据则是一个逆过程，数据从串口线Rx一位一位地输入到接收移位寄存器，然后自动地转移到接收数据寄存器RDR，最后用内核指令或DMA读取到内存（变量）中。</p>
+<h3 id="串口配置过程"><a href="#串口配置过程" class="headerlink" title="串口配置过程"></a>串口配置过程</h3><p>选定PA9为Tx、PA10为Rx，那么它们的GPIO模式要如何配置呢？Tx为发送端，输出引脚，而且现在GPIO是使用复用功能，所以要把它配置为复用推挽输出模式（GPIO_Mode_AF_PP）；而Rx引脚为接收端，输入引脚，所以配置为浮空输入模式（GPIO_Mode_IN_FLOATING）。如果在使用复用功能时，对GPIO的模式不太确定的话，我们可以从《STM32参考手册》的GPIO章节中查询得到.</p>
+<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/12.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/12.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<p>通信协议要求两个通信器件之间的波特率、字长、停止位、奇偶校验位都相同。</p>
+<ul>
+<li>字长（一次传送的数据长度）可以为8或者9</li>
+<li>波特率（每秒传输的数据位数）一般可以为115200</li>
+<li>奇偶校验位，可以没有</li>
+<li>停止位，可以设置为1</li>
+<li>硬件流控制<ul>
+<li>关于硬件流，在STM32的很多外设都具有硬件流的功能，其功能表现为：当外设硬件处于准备好的状态时，硬件启动自动控制，而不需要软件再进行干预。在串口外设的硬件流具体表现为：使用串口的RTS（Request toSend）和CTS（Clear to Send）针脚，当串口已经准备好接收新数据时，由硬件流自动把RTS针拉低（向外表示可接收数据）；在发送数据前，由硬件流自动检查CTS针是否为低（表示是否可以发送数据），再进行发送。本串口例程没有使用到CTS和RTS，所以不采用硬件流控制。</li>
+</ul>
+</li>
+<li>串口模式，为了配置双线全双工通信，需要把Rx和Tx都开启。</li>
+</ul>
+<h2 id="dma"><a href="#DMA" class="headerlink" title="DMA"></a>DMA</h2><p>DMA（Direct Memory Access，直接存储器存取），是一种可以大大减轻CPU工作量的数据存取方式，因而被广泛地使用。早在8086的应用中就已经有Intel的8237这种典型的DMA控制器，而STM32的DMA则是以类似外设的形式添加到Cortex内核之外的。在硬件系统中，主要由CPU（内核）、外设、内存（SRAM）、总线等结构组成，数据经常要在内存与外设之间转移，或从外设A转移到外设B。在转移数据的过程中会占用CPU十分宝贵的资源，所以我们希望CPU更多地被用在数据运算或响应中断之中，而数据转移的工作交由其他部件完成。DMA正是为CPU分担了数据转移的工作。因为DMA的存在CPU才被解放出来，它可以在DMA转移数据的过程中同时进行数据运算、响应中断，大大提高效率。</p>
+<h3 id="配置dma异步串口通信"><a href="#配置DMA异步串口通信" class="headerlink" title="配置DMA异步串口通信"></a>配置DMA异步串口通信</h3><ul>
+<li>外设数据寄存器的基地址，如果要发送给串口，则填入串口的数据寄存器（不是移位寄存器）的地址。</li>
+<li>内存基地址，通常赋予某个数组的基地址（数组名）。然后利用自增把串口的数据一个一个填写进去或者一个一个读出发送给串口。</li>
+<li>数据传输方向</li>
+<li>传输数据大小</li>
+<li>设置外设和内存是否自增</li>
+<li>外设和内存的数据单元大小，可以为字节、半字节和字</li>
+<li>DMA模式，可以为循环模式或者正常模式，循环模式即在传输完一轮数据之后再重新传输，这种方式很适合ADC不断采集数据的场合。正常模式只做一次完整传输。</li>
+<li>MA通道的优先级，总线矩阵根据其DMA通道的优先级进行总线协调分配。</li>
+<li>是否内存到内存的DMA传输。DMA传输可以在外设与内存、外设与外设以及内存与内存之间进行。可以是disable或者enable</li>
+</ul>
+</li>
+</ul>
 
   </div>
   
+  
+    
+    <div class='footer'>
+       <!-- 参考资料、相关资料等 -->
+      
+       <!-- 相关文章 -->
+      
+      <!-- 版权声明组件 -->
+      
+      <!-- 打赏组件 -->
+      
+    </div>
   
   
     
@@ -2781,10 +2899,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2023-12-02T17:13:20+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2023-12-10T20:16:39+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2023年12月2日</p>
+    <p>更新于：2023年12月10日</p>
   </a>
 </div>
 
@@ -2803,7 +2921,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://dyzhou2001.github.io/about/index.html&title=关于 - 碎流岛&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://dyzhou2001.github.io/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/&title=STM32主要部件配置总结 - 碎流岛&summary="
           
           >
           
@@ -2815,7 +2933,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://dyzhou2001.github.io/about/index.html&title=关于 - 碎流岛&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://dyzhou2001.github.io/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/&title=STM32主要部件配置总结 - 碎流岛&summary="
           
           >
           
@@ -2827,7 +2945,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://dyzhou2001.github.io/about/index.html&title=关于 - 碎流岛&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://dyzhou2001.github.io/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/&title=STM32主要部件配置总结 - 碎流岛&summary="
           
           >
           
@@ -2858,6 +2976,17 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
 
   
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2023/12/10/STM32-GPIO/'>
+          <p class='title'>学习笔记STM32_GPIO<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>Cube IDE收藏键的使用收藏键可以快速找到收藏的芯片。
+GPIO保护二极管的作用，但是只能抵御一瞬间电压波动，长时间大电压会损坏芯片。标记有FT的引脚表示可以容忍5V电压引脚。对口的读和写为...</p>
+        </a>
+      
+    </div>
+  
   <!-- Custom Files postEnd begin-->
   
   <!-- Custom Files postEnd end-->
@@ -2869,7 +2998,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <article class="post white-box shadow floatable blur" id="comments">
     <span hidden>
-      <meta itemprop="discussionUrl" content="/about/index.html#comments">
+      <meta itemprop="discussionUrl" content="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/index.html#comments">
     </span>
     <p ct><i class='fa-solid fa-comments'></i> 评论</p>
     
@@ -2901,9 +3030,19 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
 
 
-  <div class="">
-    <!-- pjax占位 -->
-  </div>
+  <section class="widget toc-wrapper desktop mobile " id="toc-div" >
+    
+  <header>
+    
+      <i class="fa-solid fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F"><span class="toc-text">时钟系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D"><span class="toc-text">时钟系统介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%92%9F%E8%B5%B0%E5%90%91%E4%B8%BE%E4%BE%8B"><span class="toc-text">时钟走向举例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nvic%E4%B8%AD%E6%96%AD%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-text">NVIC中断控制器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E6%8E%A7%E5%88%B6%E5%99%A8%E4%BB%8B%E7%BB%8D"><span class="toc-text">中断控制器介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD"><span class="toc-text">配置外部中断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#afio"><span class="toc-text">AFIO</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1"><span class="toc-text">串口通信</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE"><span class="toc-text">异步串口通信协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E8%BF%87%E7%A8%8B"><span class="toc-text">数据传输过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%B2%E5%8F%A3%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B"><span class="toc-text">串口配置过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dma"><span class="toc-text">DMA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEdma%E5%BC%82%E6%AD%A5%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1"><span class="toc-text">配置DMA异步串口通信</span></a></li></ol></li></ol>
+    </div>
+  </section>
 
   
 
@@ -2957,7 +3096,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <pjax>
 <script>
   window.pdata={}
-  pdata.ispage=false;
+  pdata.ispage=true;
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   pdata.commentConfig={};
@@ -3587,7 +3726,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","sameAs":["https://github.com/volantis-x"],"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://dyzhou2001.github.io/","name":"碎流岛"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"碎流岛","url":"https://dyzhou2001.github.io/","keywords":null,"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极","author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},"publisher":{"@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://dyzhou2001.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"关于","description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://dyzhou2001.github.io/about/index.html"},"author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/"},"publisher":{"@type":"Organization","name":"碎流岛","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://dyzhou2001.github.io/about/index.html","wordCount":0,"datePublished":"2023-12-02T09:02:22.000Z","dateModified":"2023-12-02T09:13:20.991Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","sameAs":["https://github.com/volantis-x"],"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://dyzhou2001.github.io/","name":"碎流岛"}},{"@type":"ListItem","position":3,"item":{"@id":"https://dyzhou2001.github.io/2023/12/10/STM32主要部件配置总结/","name":"STM32主要部件配置总结"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"碎流岛","url":"https://dyzhou2001.github.io/","keywords":null,"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极","author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},"publisher":{"@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://dyzhou2001.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"STM32主要部件配置总结","description":"总结一些基本的知识，包括时钟树、外设等，主要说明需要配置的参数以及配置的方法。","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://dyzhou2001.github.io/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/"},"author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/"},"publisher":{"@type":"Organization","name":"碎流岛","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://dyzhou2001.github.io/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/","wordCount":0,"datePublished":"2023-12-10T10:39:41.000Z","dateModified":"2023-12-10T12:16:39.615Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
