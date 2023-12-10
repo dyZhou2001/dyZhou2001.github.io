@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <!-- SEO相关 -->
   
-  <link rel="canonical" href="https://dyzhou2001.github.io/2023/04/05/hello-world/"/>
+  <link rel="canonical" href="https://dyzhou2001.github.io/2023/12/10/stm32-gpio/"/>
   <!-- 渲染优化 -->
     <meta http-equiv='x-dns-prefetch-control' content='on' />
       <link rel='dns-prefetch' href='https://unpkg.com'>
@@ -33,19 +33,19 @@
 
   <!-- feed -->
   <!-- 页面元数据 -->
-  <title>Hello World - 碎流岛</title>
+  <title>学习笔记STM32_GPIO - 碎流岛</title>
   <meta name="keywords" content="null">
-  <meta desc name="description" content="记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极 - Young Joe - 碎流岛">
+  <meta desc name="description" content="学习GPIO口的笔记，涉及了一点点Cube IDE的使用，后面会上传具体配置。 - Young Joe - 碎流岛">
   
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://dyzhou2001.github.io/2023/04/05/hello-world/index.html">
+<meta property="og:title" content="学习笔记STM32_GPIO">
+<meta property="og:url" content="https://dyzhou2001.github.io/2023/12/10/STM32-GPIO/index.html">
 <meta property="og:site_name" content="碎流岛">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="学习GPIO口的笔记，涉及了一点点Cube IDE的使用，后面会上传具体配置。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-<meta property="article:published_time" content="2023-04-05T08:32:45.724Z">
-<meta property="article:modified_time" content="2023-12-03T09:21:23.439Z">
+<meta property="article:published_time" content="2023-12-10T02:52:13.000Z">
+<meta property="article:modified_time" content="2023-12-10T03:16:24.014Z">
 <meta property="article:author" content="Young Joe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
@@ -2700,7 +2700,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 <div id="l_main" class=''>
   <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
-  <link itemprop="mainEntityOfPage" href="https://dyzhou2001.github.io/2023/04/05/hello-world/">
+  <link itemprop="mainEntityOfPage" href="https://dyzhou2001.github.io/2023/12/10/STM32-GPIO/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="碎流岛">
   </span>
@@ -2721,7 +2721,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       <h1 class="title" itemprop="name headline">
-        Hello World
+        学习笔记STM32_GPIO
       </h1>
       <div class='new-meta-box'>
         
@@ -2742,10 +2742,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2023-04-05T16:32:45+08:00">
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2023-12-10T10:52:13+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2023年4月5日</p>
+    <p>发布于：2023年12月10日</p>
   </a>
 </div>
 
@@ -2768,19 +2768,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
-    <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="quick-start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+    <h1 id="cube-ide收藏键的使用"><a href="#Cube-IDE收藏键的使用" class="headerlink" title="Cube IDE收藏键的使用"></a>Cube IDE收藏键的使用</h1><p>收藏键可以快速找到收藏的芯片。<br><img src="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%871.png" class="lazyload" data-srcset="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%871.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="收藏界面图片"></p>
+<h1 id="gpio"><a href="#GPIO" class="headerlink" title="GPIO"></a>GPIO</h1><p><img src="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%872.png" class="lazyload" data-srcset="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%872.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="GPIO基本结构"><br>保护二极管的作用，但是只能抵御一瞬间电压波动，长时间大电压会损坏芯片。标记有FT的引脚表示可以容忍5V电压引脚。<br><img src="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%873.png" class="lazyload" data-srcset="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%873.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="保护二极管"><br><img src="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%874.png" class="lazyload" data-srcset="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%874.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="容忍5V电压的IO口"><br>对口的读和写为：<br>    “””HAL_GPIO_WritePin()<br>    HAL_GPIO_ReadPin()”””<br>状态枚举类型：<br>    GPIO_PinState&#x3D;{GPIO_PIN_SET, GPIO_PIN_RESET }</p>
+<h2 id="gpio输出"><a href="#GPIO输出" class="headerlink" title="GPIO输出"></a>GPIO输出</h2><p><img src="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%875.png" class="lazyload" data-srcset="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%875.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="GPIO输出模式结构"><br>寄存器控制N-MOS与P-MOS实现输出高低电平。<br>推挽输出PN-MOS交替工作实现高低电压。输出高电平PMOS接通NMOS断开。<br>开漏模式只有N-MOS工作。外接5V电压，实现大功率驱动，此时为RESET，IO口写为低电平。此时若NMOS断开，则呈现高阻态，没有驱动能力，这时IO口写为高电平。即SET位。开漏输出是由外部电源驱动的。<br><img src="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%876.png" class="lazyload" data-srcset="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%876.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="开漏输出"><br><img src="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%877.png" class="lazyload" data-srcset="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%877.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="两钟模式优缺点"><br>复用模式由另外的线实现，来自片上外设的复用功能。<br><img src="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%878.png" class="lazyload" data-srcset="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%878.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="复用模式示意图"></p>
+<h2 id="gpio输入"><a href="#GPIO输入" class="headerlink" title="GPIO输入"></a>GPIO输入</h2><p><img src="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%879.png" class="lazyload" data-srcset="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%879.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="GPIO输入"><br>输入模式有四种，上拉、下拉、浮空和模拟输入。</p>
+<h2 id="关于上拉电阻"><a href="#关于上拉电阻" class="headerlink" title="关于上拉电阻"></a>关于上拉电阻</h2><p>关于上拉和下拉电阻：相当于设置引脚的默认电平，若设置为上拉，则引脚默认为高电平，即在没有任何输入的时候引脚为高电平状态，下拉电阻则为低电平状态。这两个电阻阻值都相对较大，实现尽可能分压，减小对输入的影响。<br><img src="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%8710.png" class="lazyload" data-srcset="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%8710.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="上拉下拉电路"></p>
+<h3 id="上拉电阻使用场景"><a href="#上拉电阻使用场景" class="headerlink" title="上拉电阻使用场景"></a>上拉电阻使用场景</h3><p>上拉电阻往往伴随MOS管出现。如果去掉电阻相当于一个工作在开漏模式的IO口。MOS管如果不接通相当于处于浮空状态，电压不确定，为了给一个确定的电压，则需要上拉电阻，因为没有导通，所以接了电阻以后电压为VCC。<br><img src="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%8711.png" class="lazyload" data-srcset="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%8711.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="上拉电阻使用场景"><br><img src="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%8712.png" class="lazyload" data-srcset="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%8712.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="上拉电阻使用场景"><br>如果有其他设备输入，R2阻值非常大，因此在上图这种情况依然可以认为是3.3V。<br><img src="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%8713.png" class="lazyload" data-srcset="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%8713.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="上拉电阻使用场景"><br><img src="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%8714.png" class="lazyload" data-srcset="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%8714.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="上拉电阻使用场景"><br>若无电阻，则在MOS管接通后发生短路。</p>
+<h3 id="上拉电阻取值"><a href="#上拉电阻取值" class="headerlink" title="上拉电阻取值"></a>上拉电阻取值</h3><p><img src="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%8715.png" class="lazyload" data-srcset="/2023/12/10/STM32-GPIO/%E5%9B%BE%E7%89%8715.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="上拉电阻使用场景"></p>
 
   </div>
   
@@ -2805,10 +2799,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2023-12-03T17:21:23+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2023-12-10T11:16:24+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2023年12月3日</p>
+    <p>更新于：2023年12月10日</p>
   </a>
 </div>
 
@@ -2827,7 +2821,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://dyzhou2001.github.io/2023/04/05/hello-world/&title=Hello World - 碎流岛&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://dyzhou2001.github.io/2023/12/10/STM32-GPIO/&title=学习笔记STM32_GPIO - 碎流岛&summary="
           
           >
           
@@ -2839,7 +2833,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://dyzhou2001.github.io/2023/04/05/hello-world/&title=Hello World - 碎流岛&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://dyzhou2001.github.io/2023/12/10/STM32-GPIO/&title=学习笔记STM32_GPIO - 碎流岛&summary="
           
           >
           
@@ -2851,7 +2845,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://dyzhou2001.github.io/2023/04/05/hello-world/&title=Hello World - 碎流岛&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://dyzhou2001.github.io/2023/12/10/STM32-GPIO/&title=学习笔记STM32_GPIO - 碎流岛&summary="
           
           >
           
@@ -2884,11 +2878,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
-        <a class='prev' href='/2023/04/05/newpapername/'>
-          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>markdownLearning</p>
-          <p class='content'>RUNOOB Markdown TestHello World!我展示的是一级标题我展示的是二级标题一级标题二级标题三级标题四级标题五级标题六级标题斜体文本斜体文本粗体文本粗体文本粗斜体文本粗斜...</p>
-        </a>
       
+        <a class='next' href='/2023/12/02/ExemptionManual/'>
+          <p class='title'>推免手册<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>序言&emsp;&emsp;本人是机械与汽车工程学院20级车辆工程二班的一名本科生。现在时间是2023年11月11日，外面滴答下着雨，我的手指在键盘上跳跃，回忆我的大学四年。&emsp;&ems...</p>
+        </a>
       
     </div>
   
@@ -2903,7 +2897,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <article class="post white-box shadow floatable blur" id="comments">
     <span hidden>
-      <meta itemprop="discussionUrl" content="/2023/04/05/hello-world/index.html#comments">
+      <meta itemprop="discussionUrl" content="/2023/12/10/STM32-GPIO/index.html#comments">
     </span>
     <p ct><i class='fa-solid fa-comments'></i> 评论</p>
     
@@ -2945,7 +2939,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#quick-start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cube-ide%E6%94%B6%E8%97%8F%E9%94%AE%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">Cube IDE收藏键的使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#gpio"><span class="toc-text">GPIO</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#gpio%E8%BE%93%E5%87%BA"><span class="toc-text">GPIO输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gpio%E8%BE%93%E5%85%A5"><span class="toc-text">GPIO输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E4%B8%8A%E6%8B%89%E7%94%B5%E9%98%BB"><span class="toc-text">关于上拉电阻</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E6%8B%89%E7%94%B5%E9%98%BB%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">上拉电阻使用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E6%8B%89%E7%94%B5%E9%98%BB%E5%8F%96%E5%80%BC"><span class="toc-text">上拉电阻取值</span></a></li></ol></li></ol></li></ol>
     </div>
   </section>
 
@@ -3631,7 +3625,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","sameAs":["https://github.com/volantis-x"],"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://dyzhou2001.github.io/","name":"碎流岛"}},{"@type":"ListItem","position":3,"item":{"@id":"https://dyzhou2001.github.io/2023/04/05/hello-world/","name":"Hello World"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"碎流岛","url":"https://dyzhou2001.github.io/","keywords":null,"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极","author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},"publisher":{"@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://dyzhou2001.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"Hello World","description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://dyzhou2001.github.io/2023/04/05/hello-world/"},"author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/"},"publisher":{"@type":"Organization","name":"碎流岛","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://dyzhou2001.github.io/2023/04/05/hello-world/","wordCount":0,"datePublished":"2023-04-05T08:32:45.724Z","dateModified":"2023-12-03T09:21:23.439Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","sameAs":["https://github.com/volantis-x"],"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://dyzhou2001.github.io/","name":"碎流岛"}},{"@type":"ListItem","position":3,"item":{"@id":"https://dyzhou2001.github.io/2023/12/10/STM32-GPIO/","name":"学习笔记STM32_GPIO"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"碎流岛","url":"https://dyzhou2001.github.io/","keywords":null,"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极","author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},"publisher":{"@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://dyzhou2001.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"学习笔记STM32_GPIO","description":"学习GPIO口的笔记，涉及了一点点Cube IDE的使用，后面会上传具体配置。","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://dyzhou2001.github.io/2023/12/10/STM32-GPIO/"},"author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/"},"publisher":{"@type":"Organization","name":"碎流岛","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://dyzhou2001.github.io/2023/12/10/STM32-GPIO/","wordCount":0,"datePublished":"2023-12-10T02:52:13.000Z","dateModified":"2023-12-10T03:16:24.014Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
