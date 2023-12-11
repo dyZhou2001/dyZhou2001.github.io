@@ -34,7 +34,7 @@
   <!-- feed -->
   <!-- 页面元数据 -->
   <title>学习笔记STM32_GPIO - 碎流岛</title>
-  <meta name="keywords" content="null">
+  <meta name="keywords" content="STM32,null">
   <meta desc name="description" content="学习GPIO口的笔记，涉及了一点点Cube IDE的使用，后面会上传具体配置。 - Young Joe - 碎流岛">
   
 <meta property="og:type" content="article">
@@ -45,8 +45,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2023-12-10T02:52:13.000Z">
-<meta property="article:modified_time" content="2023-12-10T03:36:56.505Z">
+<meta property="article:modified_time" content="2023-12-11T11:30:46.174Z">
 <meta property="article:author" content="Young Joe">
+<meta property="article:tag" content="STM32">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
   <style>
@@ -1907,7 +1908,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1702293384182),
+    lastupdate: new Date(1702294286564),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2805,10 +2806,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2023-12-10T11:36:56+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2023-12-11T19:30:46+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2023年12月10日</p>
+    <p>更新于：2023年12月11日</p>
   </a>
 </div>
 
@@ -2816,6 +2817,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         
           
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/STM32/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>STM32</p></a></div>
+  <span hidden itemprop="keywords">STM32</span>
+
 
         
       
@@ -2884,13 +2889,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
-        <a class='prev' href='/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/'>
-          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>STM32主要部件配置总结</p>
-          <p class='content'>时钟系统
-时钟系统介绍
-
-STM32有外部和内部时钟，每种又分为高速时钟和低速时钟，即HSE、HSI、LSE、LSI。
-低速时钟主要提供给RTC（实时时钟）和独立看门狗使用，一般主要使用主要使用...</p>
+        <a class='prev' href='/2023/12/10/%E4%B8%B2%E5%8F%A3%E6%9C%BA%E5%88%B6/'>
+          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>串口机制</p>
+          <p class='content'>中断串口通信流程
+发送数据寄存器储存将要发送的数据，发送移位寄存器负责发送数据。数据发送完成出发发送数据寄存器中断，将CPU唤起更新发送数据寄存器。
+在MX中配置工程时要打开NVIC相应的中断通...</p>
         </a>
       
       
@@ -3640,7 +3643,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","sameAs":["https://github.com/volantis-x"],"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://dyzhou2001.github.io/","name":"碎流岛"}},{"@type":"ListItem","position":3,"item":{"@id":"https://dyzhou2001.github.io/2023/12/10/STM32-GPIO/","name":"学习笔记STM32_GPIO"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"碎流岛","url":"https://dyzhou2001.github.io/","keywords":null,"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极","author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},"publisher":{"@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://dyzhou2001.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"学习笔记STM32_GPIO","description":"学习GPIO口的笔记，涉及了一点点Cube IDE的使用，后面会上传具体配置。","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://dyzhou2001.github.io/2023/12/10/STM32-GPIO/"},"author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/"},"publisher":{"@type":"Organization","name":"碎流岛","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://dyzhou2001.github.io/2023/12/10/STM32-GPIO/","wordCount":0,"datePublished":"2023-12-10T02:52:13.000Z","dateModified":"2023-12-10T03:36:56.505Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","sameAs":["https://github.com/volantis-x"],"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://dyzhou2001.github.io/","name":"碎流岛"}},{"@type":"ListItem","position":3,"item":{"@id":"https://dyzhou2001.github.io/2023/12/10/STM32-GPIO/","name":"学习笔记STM32_GPIO"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"碎流岛","url":"https://dyzhou2001.github.io/","keywords":null,"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极","author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},"publisher":{"@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://dyzhou2001.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"学习笔记STM32_GPIO","description":"学习GPIO口的笔记，涉及了一点点Cube IDE的使用，后面会上传具体配置。","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://dyzhou2001.github.io/2023/12/10/STM32-GPIO/"},"author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/"},"publisher":{"@type":"Organization","name":"碎流岛","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://dyzhou2001.github.io/2023/12/10/STM32-GPIO/","wordCount":0,"datePublished":"2023-12-10T02:52:13.000Z","dateModified":"2023-12-11T11:30:46.174Z","keywords":"STM32","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 

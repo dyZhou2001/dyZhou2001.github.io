@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <!-- SEO相关 -->
   
-  <link rel="canonical" href="https://dyzhou2001.github.io/2023/04/05/hello-world/"/>
+  <link rel="canonical" href="https://dyzhou2001.github.io/2023/12/10/串口机制/"/>
   <!-- 渲染优化 -->
     <meta http-equiv='x-dns-prefetch-control' content='on' />
       <link rel='dns-prefetch' href='https://unpkg.com'>
@@ -33,20 +33,21 @@
 
   <!-- feed -->
   <!-- 页面元数据 -->
-  <title>Hello World - 碎流岛</title>
-  <meta name="keywords" content="null">
-  <meta desc name="description" content="记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极 - Young Joe - 碎流岛">
+  <title>串口机制 - 碎流岛</title>
+  <meta name="keywords" content="STM32,null">
+  <meta desc name="description" content="STM32串口机制 - Young Joe - 碎流岛">
   
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://dyzhou2001.github.io/2023/04/05/hello-world/index.html">
+<meta property="og:title" content="串口机制">
+<meta property="og:url" content="https://dyzhou2001.github.io/2023/12/10/%E4%B8%B2%E5%8F%A3%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="碎流岛">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="STM32串口机制">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-<meta property="article:published_time" content="2023-04-05T08:32:45.724Z">
-<meta property="article:modified_time" content="2023-12-03T09:21:23.439Z">
+<meta property="article:published_time" content="2023-12-10T07:33:51.000Z">
+<meta property="article:modified_time" content="2023-12-11T11:30:34.510Z">
 <meta property="article:author" content="Young Joe">
+<meta property="article:tag" content="STM32">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
   <style>
@@ -2700,7 +2701,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 <div id="l_main" class=''>
   <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
-  <link itemprop="mainEntityOfPage" href="https://dyzhou2001.github.io/2023/04/05/hello-world/">
+  <link itemprop="mainEntityOfPage" href="https://dyzhou2001.github.io/2023/12/10/串口机制/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="碎流岛">
   </span>
@@ -2721,7 +2722,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       <h1 class="title" itemprop="name headline">
-        Hello World
+        串口机制
       </h1>
       <div class='new-meta-box'>
         
@@ -2742,10 +2743,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2023-04-05T16:32:45+08:00">
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2023-12-10T15:33:51+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2023年4月5日</p>
+    <p>发布于：2023年12月10日</p>
   </a>
 </div>
 
@@ -2768,19 +2769,37 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
-    <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="quick-start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+    <h1 id="中断串口通信流程"><a href="#中断串口通信流程" class="headerlink" title="中断串口通信流程"></a>中断串口通信流程</h1><p><img src="/2023/12/10/%E4%B8%B2%E5%8F%A3%E6%9C%BA%E5%88%B6/1.png" class="lazyload" data-srcset="/2023/12/10/%E4%B8%B2%E5%8F%A3%E6%9C%BA%E5%88%B6/1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="串口发送机制"></p>
+<p>发送数据寄存器储存将要发送的数据，发送移位寄存器负责发送数据。数据发送完成出发发送数据寄存器中断，将CPU唤起更新发送数据寄存器。</p>
+<p>在MX中配置工程时要打开NVIC相应的中断通道。</p>
+<p>使用中断控制串口发送和接收指令：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HAL_UART_Receive_IT()</span><br><span class="line">HAL_UART_Transmit_IT()</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>在接收和发送数据以后为了对数据进行处理，应该进入‘stm32f1xx_it.c’文件，对相应的中断函数进行修改。</p>
+<p>USART的中断向量对应的中断处理函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USARTx_IRQHandler(void)</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>但是此中断处理函数和许多中断请求共用处理函数。所以需要条件判断查看是什么中断。HAL库通过回调函数机制实现逻辑处理。通过进入中断处理函数定义可以查看不同的callback函数。</p>
+<p><img src="/2023/12/10/%E4%B8%B2%E5%8F%A3%E6%9C%BA%E5%88%B6/2.png" class="lazyload" data-srcset="/2023/12/10/%E4%B8%B2%E5%8F%A3%E6%9C%BA%E5%88%B6/2.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="USART中断请求"></p>
+<p>接收完成回调函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void HAL_UART_RxCpltCallback(UART_HandleTypeDet * huart)</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>将代码写入此回调函数就可以在串口接收完成以后立刻对收到的数据进行分析。此函数为弱定义函数，在工程中使用时应自己定义。</p>
+<p>注意要在回调函数最后再次写入串口接收函数<code>HAL_UART_Receive_IT()</code>否则中断触发一次以后就不会再触发。</p>
+<h1 id="串口通信dma模式"><a href="#串口通信DMA模式" class="headerlink" title="串口通信DMA模式"></a>串口通信DMA模式</h1><ol>
+<li><p>MX中新建工程时找到DMA Settings，点击Add添加新的通道。为新的通道选择功能，如选择<code>USART2_TX</code>就是指此DMA用于USART2的串口发送。剩余部分MX自动填写，包括选择DMA1的Channel7，数据传输方向和中断优先级。下面还可以选择数据是否自增，对于发送数据寄存器来说只有1字节，不需要勾选自增，而从内存变量中搬运是依次搬运，所以需要自增。</p>
+</li>
+<li><p>选择接收数据也是相似设置。</p>
+</li>
+<li><p>DMA发送接收指令：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">   HAL_UART_Receive_DMA()</span><br><span class="line">   HAL_UART_Transmit_DMA()</span><br><span class="line"></span><br><span class="line">​	参数为在哪个串口发送、要发的变量以及发送的字节数。</span><br><span class="line"></span><br><span class="line"><span class="number">4.</span> 相比于中断模式，DMA的优势</span><br><span class="line"></span><br><span class="line">   ![两种模式对比](<span class="number">3.</span>png)</span><br><span class="line"></span><br><span class="line">​	主要体现在触发中断的次数不同。</span><br><span class="line"></span><br><span class="line"># 串口空闲（idle）中断</span><br><span class="line"></span><br><span class="line">串口空闲中断的逻辑是当串口接收从忙碌转为空闲时可以认为数据传输完成，此时触发中断。这样做的好处是可以传输不定长的数据。</span><br><span class="line"></span><br><span class="line">串口接收函数：</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>HAL_UARTEx_ReceiveToIdle_DMA(&amp;huart2, receiveData, Size)  &#x2F;&#x2F;DMA模式，也可以选择阻塞模式或中断模式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">最后的Size表示最大能接收的数组长度。</span><br><span class="line"></span><br><span class="line">这里的回调函数与之前不同，应为：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>HAL_UARTEx_RxEventCallback</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">需要注意，上面的```HAL_UARTEx_ReceiveToIdle_DMA```会触发传输过半中断，所以在回调函数中应该关闭这个中断。</span><br><span class="line"></span><br><span class="line">```c</span><br><span class="line">__HAL_DMA_DISABLE_IT(&amp;hdma_usart2_rx,DMA_IT_HT)</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>别忘了在程序开始时也要关闭这个中断。</p>
 
   </div>
   
@@ -2805,10 +2824,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2023-12-03T17:21:23+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2023-12-11T19:30:34+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2023年12月3日</p>
+    <p>更新于：2023年12月11日</p>
   </a>
 </div>
 
@@ -2816,6 +2835,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         
           
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/STM32/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>STM32</p></a></div>
+  <span hidden itemprop="keywords">STM32</span>
+
 
         
       
@@ -2827,7 +2850,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://dyzhou2001.github.io/2023/04/05/hello-world/&title=Hello World - 碎流岛&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://dyzhou2001.github.io/2023/12/10/%E4%B8%B2%E5%8F%A3%E6%9C%BA%E5%88%B6/&title=串口机制 - 碎流岛&summary="
           
           >
           
@@ -2839,7 +2862,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://dyzhou2001.github.io/2023/04/05/hello-world/&title=Hello World - 碎流岛&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://dyzhou2001.github.io/2023/12/10/%E4%B8%B2%E5%8F%A3%E6%9C%BA%E5%88%B6/&title=串口机制 - 碎流岛&summary="
           
           >
           
@@ -2851,7 +2874,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://dyzhou2001.github.io/2023/04/05/hello-world/&title=Hello World - 碎流岛&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://dyzhou2001.github.io/2023/12/10/%E4%B8%B2%E5%8F%A3%E6%9C%BA%E5%88%B6/&title=串口机制 - 碎流岛&summary="
           
           >
           
@@ -2884,11 +2907,19 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
-        <a class='prev' href='/2023/04/05/newpapername/'>
-          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>markdownLearning</p>
-          <p class='content'>RUNOOB Markdown TestHello World!我展示的是一级标题我展示的是二级标题一级标题二级标题三级标题四级标题五级标题六级标题斜体文本斜体文本粗体文本粗体文本粗斜体文本粗斜...</p>
+        <a class='prev' href='/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/'>
+          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>STM32主要部件配置总结</p>
+          <p class='content'>时钟系统时钟系统介绍
+STM32有外部和内部时钟，每种又分为高速时钟和低速时钟，即HSE、HSI、LSE、LSI。
+低速时钟主要提供给RTC（实时时钟）和独立看门狗使用，一般主要使用主要使用HS...</p>
         </a>
       
+      
+        <a class='next' href='/2023/12/10/STM32-GPIO/'>
+          <p class='title'>学习笔记STM32_GPIO<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>Cube IDE收藏键的使用收藏键可以快速找到收藏的芯片。
+GPIO保护二极管的作用，但是只能抵御一瞬间电压波动，长时间大电压会损坏芯片。标记有FT的引脚表示可以容忍5V电压引脚。对口的读和写为...</p>
+        </a>
       
     </div>
   
@@ -2903,7 +2934,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <article class="post white-box shadow floatable blur" id="comments">
     <span hidden>
-      <meta itemprop="discussionUrl" content="/2023/04/05/hello-world/index.html#comments">
+      <meta itemprop="discussionUrl" content="/2023/12/10/%E4%B8%B2%E5%8F%A3%E6%9C%BA%E5%88%B6/index.html#comments">
     </span>
     <p ct><i class='fa-solid fa-comments'></i> 评论</p>
     
@@ -2945,7 +2976,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#quick-start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E6%B5%81%E7%A8%8B"><span class="toc-text">中断串口通信流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1dma%E6%A8%A1%E5%BC%8F"><span class="toc-text">串口通信DMA模式</span></a></li></ol>
     </div>
   </section>
 
@@ -3631,7 +3662,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","sameAs":["https://github.com/volantis-x"],"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://dyzhou2001.github.io/","name":"碎流岛"}},{"@type":"ListItem","position":3,"item":{"@id":"https://dyzhou2001.github.io/2023/04/05/hello-world/","name":"Hello World"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"碎流岛","url":"https://dyzhou2001.github.io/","keywords":null,"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极","author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},"publisher":{"@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://dyzhou2001.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"Hello World","description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://dyzhou2001.github.io/2023/04/05/hello-world/"},"author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/"},"publisher":{"@type":"Organization","name":"碎流岛","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://dyzhou2001.github.io/2023/04/05/hello-world/","wordCount":0,"datePublished":"2023-04-05T08:32:45.724Z","dateModified":"2023-12-03T09:21:23.439Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","sameAs":["https://github.com/volantis-x"],"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://dyzhou2001.github.io/","name":"碎流岛"}},{"@type":"ListItem","position":3,"item":{"@id":"https://dyzhou2001.github.io/2023/12/10/串口机制/","name":"串口机制"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"碎流岛","url":"https://dyzhou2001.github.io/","keywords":null,"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极","author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},"publisher":{"@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://dyzhou2001.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"串口机制","description":"STM32串口机制","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://dyzhou2001.github.io/2023/12/10/%E4%B8%B2%E5%8F%A3%E6%9C%BA%E5%88%B6/"},"author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/"},"publisher":{"@type":"Organization","name":"碎流岛","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://dyzhou2001.github.io/2023/12/10/%E4%B8%B2%E5%8F%A3%E6%9C%BA%E5%88%B6/","wordCount":0,"datePublished":"2023-12-10T07:33:51.000Z","dateModified":"2023-12-11T11:30:34.510Z","keywords":"STM32","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
