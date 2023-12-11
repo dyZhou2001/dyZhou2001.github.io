@@ -45,7 +45,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2023-12-10T10:39:41.000Z">
-<meta property="article:modified_time" content="2023-12-10T12:16:39.615Z">
+<meta property="article:modified_time" content="2023-12-11T11:16:10.486Z">
 <meta property="article:author" content="Young Joe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
@@ -1907,7 +1907,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1702210980547),
+    lastupdate: new Date(1702293384182),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2768,67 +2768,89 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
-    <h2 id="时钟系统"><a href="#时钟系统" class="headerlink" title="时钟系统"></a>时钟系统</h2><h3 id="时钟系统介绍"><a href="#时钟系统介绍" class="headerlink" title="时钟系统介绍"></a>时钟系统介绍</h3><p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/1.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="STM32时钟树"></p>
-<p>STM32有外部和内部时钟，每种又分为告诉时钟和低速时钟，即HSE、HSI、LSE、LSI。</p>
+    <h2 id="时钟系统">时钟系统</h2>
+<h3 id="时钟系统介绍">时钟系统介绍</h3>
+<p><img src="1.png" class="lazyload" data-srcset="1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="STM32时钟树"></p>
+<p>STM32有外部和内部时钟，每种又分为高速时钟和低速时钟，即HSE、HSI、LSE、LSI。</p>
 <p>低速时钟主要提供给RTC（实时时钟）和独立看门狗使用，一般主要使用主要使用HSE和HSI。</p>
-<p>时钟在芯片刚上电的时候，默认使用内部高速时钟。而外部时钟信号是由外部的晶振输入的，在精度和稳定性上都有很大优势，所以上电之后我们再通过软件配置，转而采用外部时钟信号。</p>
+<p>时钟在芯片刚上电的时候，默认使用内部高速时钟。而外部时钟信号是由外部的晶振输入的，在精度和稳定性上都有很大优势，所以上电之后再通过软件配置，转而采用外部时钟信号。</p>
 <p>所以，STM32有以下4个时钟源：</p>
 <p>​	1）高速外部时钟（HSE）：以外部晶振作为时钟源，晶振频率可取范围为4～16 MHz，我们一般采用8 MHz的晶振。</p>
 <p>​	2）高速内部时钟（HSI）：由内部RC振荡器产生，频率为8 MHz，但不稳定。</p>
 <p>​	3）低速外部时钟（LSE）：以外部晶振作为时钟源，主要提供给实时时钟模块，所以一般采用32.768 kHz。配套STM32实验板上用的是32.768 kHz、6p负载规格的晶振。</p>
 <p>​	4）低速内部时钟（LSI）：由内部RC振荡器产生，也主要提供给实时时钟模块，频率大约为40 kHz。</p>
-<h3 id="时钟走向举例"><a href="#时钟走向举例" class="headerlink" title="时钟走向举例"></a>时钟走向举例</h3><p>以最常用的高速外部时钟（HSE）为例分析，首先假定我们在外部提供的晶振的频率为8 MHz。</p>
+<h3 id="时钟走向举例">时钟走向举例</h3>
+<p>以最常用的高速外部时钟（HSE）为例分析，首先假定我们在外部提供的晶振的频率为8 MHz。</p>
 <ul>
-<li><p>1）从左端的OSC_OUT和OSC_IN开始，这两个引脚分别接到外部晶振的两端。</p>
+<li>
+<p>1）从左端的OSC_OUT和OSC_IN开始，这两个引脚分别接到外部晶振的两端。</p>
 </li>
-<li><p>2）8 MHz的时钟遇到了第一个分频器PLLXTPRE（HSE divider forPLL entry），在这个分频器中，可以通过寄存器配置，选择它的输出。它的输出时钟可以是对输入时钟的二分频或不分频。本例中，我们选择不分频，所以经过PLLXTPRE后，还是8MHz的时钟。</p>
+<li>
+<p>2）8 MHz的时钟遇到了第一个分频器PLLXTPRE（HSE divider forPLL entry），在这个分频器中，可以通过寄存器配置，选择它的输出。它的输出时钟可以是对输入时钟的二分频或不分频。本例中，我们选择不分频，所以经过PLLXTPRE后，还是8MHz的时钟。</p>
 </li>
-<li><p>3）8MHz的时钟遇到开关PLLSRC（PLL entry clock source），我们可以选择其输出，输出为外部高速时钟（HSE）或是内部高速时钟（HSI）。这里选择输出为HSE，接着遇到锁相环PLL，具有倍频作用，在这里我们可以输入倍频因子PLLMUL（PLL multiplicationfactor）。经过PLL的时钟称为PLLCLK。倍频因子我们设定为9倍频，也就是说，经过PLL之后，我们的时钟从原来8MHz的HSE变为72 MHz的PLLCLK。</p>
+<li>
+<p>3）8MHz的时钟遇到开关PLLSRC（PLL entry clock source），我们可以选择其输出，输出为外部高速时钟（HSE）或是内部高速时钟（HSI）。这里选择输出为HSE，接着遇到锁相环PLL，具有倍频作用，在这里我们可以输入倍频因子PLLMUL（PLL multiplicationfactor）。经过PLL的时钟称为PLLCLK。倍频因子我们设定为9倍频，也就是说，经过PLL之后，我们的时钟从原来8MHz的HSE变为72 MHz的PLLCLK。</p>
 </li>
-<li><p>4）紧接着又遇到了一个开关SW，经过这个开关之后就是STM32的系统时钟（SYSCLK）了。通过这个开关，可以切换SYSCLK的时钟源，可以选择HSI、PLLCLK或HSE。我们选择PLLCLK时钟，所以SYSCLK就为72 MHz了。</p>
+<li>
+<p>4）紧接着又遇到了一个开关SW，经过这个开关之后就是STM32的系统时钟（SYSCLK）了。通过这个开关，可以切换SYSCLK的时钟源，可以选择HSI、PLLCLK或HSE。我们选择PLLCLK时钟，所以SYSCLK就为72 MHz了。</p>
 </li>
-<li><p>5）PLLCLK在输入到SW前，还流向了USB预分频器，这个分频器输出为USB外设的时钟（USBCLK）。</p>
+<li>
+<p>5）PLLCLK在输入到SW前，还流向了USB预分频器，这个分频器输出为USB外设的时钟（USBCLK）。</p>
 </li>
-<li><p>6）回到SYSCLK, SYSCLK经过AHB预分频器，分频后再输入到其他外设。如输出到称为HCLK、FCLK的时钟，还直接输出到SDIO外设的SDIOCLK时钟、存储器控制器FSMC的FSMCCLK时钟，以及作为APB1、APB2的预分频器的输入端。本例设置AHB预分频器不分频，即输出的频率为72 MHz。</p>
+<li>
+<p>6）回到SYSCLK, SYSCLK经过AHB预分频器，分频后再输入到其他外设。如输出到称为HCLK、FCLK的时钟，还直接输出到SDIO外设的SDIOCLK时钟、存储器控制器FSMC的FSMCCLK时钟，以及作为APB1、APB2的预分频器的输入端。本例设置AHB预分频器不分频，即输出的频率为72 MHz。</p>
 </li>
-<li><p>7）GPIO外设是挂载在APB2总线上的，APB2的时钟是APB2预分频器的输出，而APB2预分频器的时钟来源是AHB预分频器。因此，把APB2预分频器设置为不分频，我们就可以得到GPIO外设的时钟也等于HCLK，即72 MHz。</p>
-<p><strong>使用外设时一定要记得开启（配置）时钟（RCC）</strong></p>
-<h2 id="nvic中断控制器"><a href="#NVIC中断控制器" class="headerlink" title="NVIC中断控制器"></a>NVIC中断控制器</h2><h3 id="中断控制器介绍"><a href="#中断控制器介绍" class="headerlink" title="中断控制器介绍"></a>中断控制器介绍</h3><p>见文知意，NVIC负责控制中断的响应，不可屏蔽中断（NMI）和外部中断都由它来处理。</p>
-<p>需要配置的主要参数有：</p>
-<ul>
-<li><p>中断向量的名称（谁来触发中断，操作中断屏蔽寄存器相应位置写1）</p>
-</li>
-<li><p>使能还是关闭中断向量</p>
-</li>
-<li><p>响应优先级</p>
-</li>
-<li><p>抢占优先级（主要）</p>
+<li>
+<p>7）GPIO外设是挂载在APB2总线上的，APB2的时钟是APB2预分频器的输出，而APB2预分频器的时钟来源是AHB预分频器。因此，把APB2预分频器设置为不分频，我们就可以得到GPIO外设的时钟也等于HCLK，即72 MHz。</p>
 </li>
 </ul>
-<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/2.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/2.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="2"></p>
+<h2 id="nvic中断控制器">NVIC中断控制器</h2>
+<h3 id="中断控制器介绍">中断控制器介绍</h3>
+<p>见文知意，NVIC负责控制中断的响应，不可屏蔽中断（NMI）和外部中断都由它来处理。</p>
+<p>需要配置的主要参数有：</p>
+<ul>
+<li>
+<p>中断向量的名称（谁来触发中断，操作中断屏蔽寄存器相应位置写1）</p>
+</li>
+<li>
+<p>使能还是关闭中断向量</p>
+</li>
+<li>
+<p>响应优先级</p>
+</li>
+<li>
+<p>抢占优先级（主要）</p>
+</li>
+</ul>
+<p><img src="2.png" class="lazyload" data-srcset="2.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="2"></p>
 <p>19个中断线，其中前16个代表不同的IO口，PA0、PB0、PC0……共用一条线。</p>
-<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/3.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="3"></p>
+<p><img src="3.png" class="lazyload" data-srcset="3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="3"></p>
 <p>事件信号由其他外设处理，中断信号由中断函数处理。</p>
-<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/4.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/4.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="4"></p>
+<p><img src="4.png" class="lazyload" data-srcset="4.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="4"></p>
 <p>19条线由相同的寄存器控制，每个寄存器的不同位控制不同的中断线。</p>
-<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/5.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="5"></p>
+<p><img src="5.png" class="lazyload" data-srcset="5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="5"></p>
 <p>与门使得中断屏蔽寄存器可以控制中断是否被触发。</p>
-<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/6.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/6.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="6"></p>
+<p><img src="6.png" class="lazyload" data-srcset="6.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="6"></p>
 <p>中断名称指向处理函数。其中EXTI5-9，10-15共用一个处理函数。</p>
-<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/7.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="7"></p>
-<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/8.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/8.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="8"></p>
-<p><img src="/.png" class="lazyload" data-srcset="/.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<p><img src="7.png" class="lazyload" data-srcset="7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="7"></p>
+<p><img src="8.png" class="lazyload" data-srcset="8.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="8"></p>
 <p>NVIC能配置的是16种中断向量，而不是16个，当工程中有超过16个中断向量时，必然有两个以上的中断向量是使用相同的中断种类，而具有相同中断种类的中断向量不能互相嵌套。</p>
-<h3 id="配置外部中断"><a href="#配置外部中断" class="headerlink" title="配置外部中断"></a>配置外部中断</h3><ul>
-<li><p>1）使能EXTIx线的时钟和第二功能AFIO时钟。</p>
+<h3 id="配置外部中断">配置外部中断</h3>
+<ul>
+<li>
+<p>1）使能EXTIx线的时钟和第二功能AFIO时钟。</p>
 </li>
-<li><p>2）配置EXTIx线的中断优先级。</p>
+<li>
+<p>2）配置EXTIx线的中断优先级。</p>
 </li>
-<li><p>3）配置EXTI中断线I&#x2F;O。</p>
+<li>
+<p>3）配置EXTI中断线I/O。</p>
 </li>
-<li><p>4）选定要配置为EXTI的I&#x2F;O口线和I&#x2F;O口的工作模式。</p>
+<li>
+<p>4）选定要配置为EXTI的I/O口线和I/O口的工作模式。</p>
 </li>
-<li><p>5）EXTI中断线工作模式配置。</p>
+<li>
+<p>5）EXTI中断线工作模式配置。</p>
 <ul>
 <li>配置EXTI_Line，查看IO口对应的EXTIx。</li>
 <li>设置模式可以选择Interrupt或者Event。</li>
@@ -2837,32 +2859,40 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ul>
 </li>
 </ul>
-<h3 id="afio"><a href="#AFIO" class="headerlink" title="AFIO"></a>AFIO</h3><p>AFIO（alternate-function I&#x2F;O），指GPIO端口的复用功能，GPIO除了用作普通的输入输出（主功能），还可以作为片上外设的复用输入输出，如串口、ADC，这些就是复用功能。大多数GPIO都有一个默认复用功能，有的GPIO还有重映射功能。重映射功能是指把原来属于A引脚的默认复用功能，转移到B引脚进行使用，前提是B引脚具有这个重映射功能。当把GPIO用作EXTI外部中断或使用重映射功能的时候，必须开启AFIO时钟，而在使用默认复用功能的时候，就不必开启AFIO时钟了。本章主要讲NVIC外部中断，所以需要开启AFIO时钟。用RCC。</p>
+<h3 id="afio">AFIO</h3>
+<p>AFIO（alternate-function I/O），指GPIO端口的复用功能，GPIO除了用作普通的输入输出（主功能），还可以作为片上外设的复用输入输出，如串口、ADC，这些就是复用功能。大多数GPIO都有一个默认复用功能，有的GPIO还有重映射功能。重映射功能是指把原来属于A引脚的默认复用功能，转移到B引脚进行使用，前提是B引脚具有这个重映射功能。当把GPIO用作EXTI外部中断或使用重映射功能的时候，必须开启AFIO时钟，而在使用默认复用功能的时候，就不必开启AFIO时钟了。本章主要讲NVIC外部中断，所以需要开启AFIO时钟。用RCC。</p>
 <p>对于外部中断来说只要知道需要开启AFIO时钟就可以了。</p>
 <p>AFIO还可以对终端端口有选择功能。如PA0和PB0冲突了，则由AFIO选择传入哪个中断。AFIO还可以控制端口复用功能。</p>
-<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/9.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/9.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="9"></p>
-<h2 id="串口通信"><a href="#串口通信" class="headerlink" title="串口通信"></a>串口通信</h2><h3 id="异步串口通信协议"><a href="#异步串口通信协议" class="headerlink" title="异步串口通信协议"></a>异步串口通信协议</h3><p>STM32的串口非常强大，它不仅支持最基本的通用串口同步、异步通信，还具有LIN总线功能（局域互联网）、IRDA功能（红外通信）、SmartCard功能。</p>
-<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/10.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/10.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="10"></p>
+<p><img src="9.png" class="lazyload" data-srcset="9.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="9"></p>
+<h2 id="串口通信">串口通信</h2>
+<h3 id="异步串口通信协议">异步串口通信协议</h3>
+<p>STM32的串口非常强大，它不仅支持最基本的通用串口同步、异步通信，还具有LIN总线功能（局域互联网）、IRDA功能（红外通信）、SmartCard功能。</p>
+<p><img src="10.png" class="lazyload" data-srcset="10.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="10"></p>
 <p>要配置串口通信，至少要设置以下几个参数：字长（一次传送的数据长度）、波特率（每秒传输的数据位数）、奇偶校验位，还有停止位。</p>
-<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/11.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/11.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="11"></p>
+<p><img src="11.png" class="lazyload" data-srcset="11.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="11"></p>
 <p>如果使用PC接法，板子与PC之间接法相同，通信使用交叉线；两个相同板子之间接法也相同，通信也是<strong>使用交叉线</strong>。</p>
-<h3 id="数据传输过程"><a href="#数据传输过程" class="headerlink" title="数据传输过程"></a>数据传输过程</h3><p>需要发送数据时，内核或DMA外设（一种数据传输方式，在第10章介绍）把数据从内存（变量）写入到发送数据寄存器TDR后，发送控制器将适时地自动把数据从TDR加载到发送移位寄存器，然后通过串口线Tx，把数据一位一位地发送出去，当数据从TDR转移到移位寄存器时，会产生发送寄存器TDR已空事件TXE，当数据从移位寄存器全部发送出去时，会产生数据发送完成事件TC，这些事件可以在状态寄存器中查询到。而接收数据则是一个逆过程，数据从串口线Rx一位一位地输入到接收移位寄存器，然后自动地转移到接收数据寄存器RDR，最后用内核指令或DMA读取到内存（变量）中。</p>
-<h3 id="串口配置过程"><a href="#串口配置过程" class="headerlink" title="串口配置过程"></a>串口配置过程</h3><p>选定PA9为Tx、PA10为Rx，那么它们的GPIO模式要如何配置呢？Tx为发送端，输出引脚，而且现在GPIO是使用复用功能，所以要把它配置为复用推挽输出模式（GPIO_Mode_AF_PP）；而Rx引脚为接收端，输入引脚，所以配置为浮空输入模式（GPIO_Mode_IN_FLOATING）。如果在使用复用功能时，对GPIO的模式不太确定的话，我们可以从《STM32参考手册》的GPIO章节中查询得到.</p>
-<p><img src="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/12.png" class="lazyload" data-srcset="/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/12.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></p>
+<h3 id="数据传输过程">数据传输过程</h3>
+<p>需要发送数据时，内核或DMA外设（一种数据传输方式，在第10章介绍）把数据从内存（变量）写入到发送数据寄存器TDR后，发送控制器将适时地自动把数据从TDR加载到发送移位寄存器，然后通过串口线Tx，把数据一位一位地发送出去，当数据从TDR转移到移位寄存器时，会产生发送寄存器TDR已空事件TXE，当数据从移位寄存器全部发送出去时，会产生数据发送完成事件TC，这些事件可以在状态寄存器中查询到。而接收数据则是一个逆过程，数据从串口线Rx一位一位地输入到接收移位寄存器，然后自动地转移到接收数据寄存器RDR，最后用内核指令或DMA读取到内存（变量）中。</p>
+<h3 id="串口配置过程">串口配置过程</h3>
+<p>选定PA9为Tx、PA10为Rx，那么它们的GPIO模式要如何配置呢？Tx为发送端，输出引脚，而且现在GPIO是使用复用功能，所以要把它配置为复用推挽输出模式（GPIO_Mode_AF_PP）；而Rx引脚为接收端，输入引脚，所以配置为浮空输入模式（GPIO_Mode_IN_FLOATING）。如果在使用复用功能时，对GPIO的模式不太确定的话，我们可以从《STM32参考手册》的GPIO章节中查询得到.</p>
+<p><img src="12.png" class="lazyload" data-srcset="12.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt></p>
 <p>通信协议要求两个通信器件之间的波特率、字长、停止位、奇偶校验位都相同。</p>
 <ul>
 <li>字长（一次传送的数据长度）可以为8或者9</li>
 <li>波特率（每秒传输的数据位数）一般可以为115200</li>
 <li>奇偶校验位，可以没有</li>
 <li>停止位，可以设置为1</li>
-<li>硬件流控制<ul>
+<li>硬件流控制
+<ul>
 <li>关于硬件流，在STM32的很多外设都具有硬件流的功能，其功能表现为：当外设硬件处于准备好的状态时，硬件启动自动控制，而不需要软件再进行干预。在串口外设的硬件流具体表现为：使用串口的RTS（Request toSend）和CTS（Clear to Send）针脚，当串口已经准备好接收新数据时，由硬件流自动把RTS针拉低（向外表示可接收数据）；在发送数据前，由硬件流自动检查CTS针是否为低（表示是否可以发送数据），再进行发送。本串口例程没有使用到CTS和RTS，所以不采用硬件流控制。</li>
 </ul>
 </li>
 <li>串口模式，为了配置双线全双工通信，需要把Rx和Tx都开启。</li>
 </ul>
-<h2 id="dma"><a href="#DMA" class="headerlink" title="DMA"></a>DMA</h2><p>DMA（Direct Memory Access，直接存储器存取），是一种可以大大减轻CPU工作量的数据存取方式，因而被广泛地使用。早在8086的应用中就已经有Intel的8237这种典型的DMA控制器，而STM32的DMA则是以类似外设的形式添加到Cortex内核之外的。在硬件系统中，主要由CPU（内核）、外设、内存（SRAM）、总线等结构组成，数据经常要在内存与外设之间转移，或从外设A转移到外设B。在转移数据的过程中会占用CPU十分宝贵的资源，所以我们希望CPU更多地被用在数据运算或响应中断之中，而数据转移的工作交由其他部件完成。DMA正是为CPU分担了数据转移的工作。因为DMA的存在CPU才被解放出来，它可以在DMA转移数据的过程中同时进行数据运算、响应中断，大大提高效率。</p>
-<h3 id="配置dma异步串口通信"><a href="#配置DMA异步串口通信" class="headerlink" title="配置DMA异步串口通信"></a>配置DMA异步串口通信</h3><ul>
+<h2 id="dma">DMA</h2>
+<p>DMA（Direct Memory Access，直接存储器存取），是一种可以大大减轻CPU工作量的数据存取方式，因而被广泛地使用。早在8086的应用中就已经有Intel的8237这种典型的DMA控制器，而STM32的DMA则是以类似外设的形式添加到Cortex内核之外的。在硬件系统中，主要由CPU（内核）、外设、内存（SRAM）、总线等结构组成，数据经常要在内存与外设之间转移，或从外设A转移到外设B。在转移数据的过程中会占用CPU十分宝贵的资源，所以我们希望CPU更多地被用在数据运算或响应中断之中，而数据转移的工作交由其他部件完成。DMA正是为CPU分担了数据转移的工作。因为DMA的存在CPU才被解放出来，它可以在DMA转移数据的过程中同时进行数据运算、响应中断，大大提高效率。</p>
+<h3 id="配置dma异步串口通信">配置DMA异步串口通信</h3>
+<ul>
 <li>外设数据寄存器的基地址，如果要发送给串口，则填入串口的数据寄存器（不是移位寄存器）的地址。</li>
 <li>内存基地址，通常赋予某个数组的基地址（数组名）。然后利用自增把串口的数据一个一个填写进去或者一个一个读出发送给串口。</li>
 <li>数据传输方向</li>
@@ -2873,8 +2903,105 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>MA通道的优先级，总线矩阵根据其DMA通道的优先级进行总线协调分配。</li>
 <li>是否内存到内存的DMA传输。DMA传输可以在外设与内存、外设与外设以及内存与内存之间进行。可以是disable或者enable</li>
 </ul>
+<h2 id="adc">ADC</h2>
+<p>ADC（Analog to Digital Converter，模/数转换器）。在模拟信号需要以数字形式处理、存储或传输时，模/数转换器几乎必不可少。STM32在片上集成的ADC外设非常强大。STM32F103xC、STM32F103xD和STM32F103xE增强型产品内嵌3个12位的ADC，每个ADC共用多达21个外部通道，可以实现单次或多次扫描转换。各通道的A/D转换可以单次、连续、扫描或间断模式执行；ADC的结果可以左对齐或右对齐方式存储在16位数据寄存器中；模拟看门狗特性允许应用程序检测输入电压是否超出用户定义的高/低阈值。</p>
+<h3 id="adc参数">ADC参数</h3>
+<p>对于ADC来说，我们最关注的就是它的分辨率、转换时间、ADC类型、参考电压范围。</p>
+<ul>
+<li>分辨率：12位分辨率。不能直接测量负电压，所以没有符号位，即其最小量化单位LSB=VREF+/212。</li>
+<li>转换时间：转换时间是可编程的。采样一次至少要用14个ADC时钟周期，而ADC的时钟频率最高为14 MHz，也就是说，它的采样时间最短为1μs。足以胜任中、低频数字示波器的采样工作。</li>
+<li>ADC类型：ADC类型决定了其性能的极限，STM32的ADC是逐次比较型ADC。</li>
+<li>参考电压范围：参考电压负极是要接地的，即VREF-=0V。而参考电压正极的范围为2.4V≤VREF+≤3.6V，所以STM32的ADC是不能直接测量负电压的，而且其输入的电压信号的范围为：VREF-≤VIN≤VREF+。当需要测量负电压或测量的电压信号超出范围时，要先经过运算电路进行平移或利用电阻分压。</li>
+</ul>
+<p><img src="13.png" class="lazyload" data-srcset="13.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt></p>
+<h3 id="工作模式">工作模式</h3>
+<p><img src="14.png" class="lazyload" data-srcset="14.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt></p>
+<p>所有的器件都是围绕中间的<strong>模拟至数字转换器</strong>部分（下面简称ADC部件）展开的。它的左端为VREF+、VREF-等ADC参考电压，ADCx_IN0～ADCx_IN15为ADC的输入信号通道，即某些GPIO引脚。输入信号经过这些通道被送到ADC部件的注入通道或规则通道，ADC部件需要受到触发信号才开始进行转换，如EXTI外部触发、定时器触发，也可以使用软件触发。ADC部件接收到触发信号之后，在ADCCLK时钟的驱动下对输入通道的信号进行采样，并进行模数转换，其中ADCCLK是来自ADC预分频器的。</p>
+<p>ADC部件转换后的数值被保存到一个16位的规则通道数据寄存器（或注入通道数据寄存器）之中，我们可以通过CPU指令或DMA把它读取到内存（变量）。模数转换之后，可以触发DMA请求或者触发ADC的转换结束事件。如果配置了模拟看门狗，并且采集得的电压大于阈值，会触发看门狗中断。</p>
+<h3 id="acd数据采集dma模式">ACD数据采集，DMA模式</h3>
+<p>ADC时往往采用DMA传输方式，由DMA把ADC外设转换的数据传输到SRAM，再进行处理，甚至直接把ADC的数据转移到串口发送给上位机。</p>
+<p>这里涉及ADC通道的知识，每个ADC通道都对应一个GPIO引脚端口，GPIO的引脚在设置为模拟输入模式后可用于模拟电压的输入。ADC_DR数据寄存器保存了ADC转换后的数值，以它作为DMA的传输源地址。</p>
+<h4 id="配置adc">配置ADC</h4>
+<ul>
+<li>DC_Mode：STM32具有多个ADC，而不同的ADC又是共用通道的，当两个ADC采集同一个通道的先后顺序、时间间隔不同，就演变出了各种各样的模式，如同步注入模式、同步规则模式等10种模式，应选择适合的模式以适应采集数据的要求。</li>
+<li>DC_ScanConvMode：当有多个通道需要采集信号时，可以把ADC配置为按一定的顺序来对各个通道进行扫描转换，即轮流采集各通道的值。若采集多个通道，必须开启此模式。</li>
+<li>DC_ContinuousConvMode：连续转换模式，此模式与单次转换模式相反，单次转换模式ADC只采集一次数据就停止转换。而连续转换模式则在上一次ADC转换完成后，立即开启下一次转换。</li>
+<li>DC_ExternalTrigConv：ADC需要在接收到触发信号后才开始进行模数转换，如外部中断触发（EXTI线）、定时器触发，这两个为外部触发信号，如果不使用外部触发信号可以使用软件控制触发。</li>
+<li>DC_DataAlign：数据对齐方式。ADC转换后的数值被保存到数据寄存器（ADC_DR）的0～15位或16～32位，数据宽度为16位，而ADC转换精度为12位。把12位的数据保存到16位的区域，就涉及左对齐和右对齐的问题。这里的左、右对齐跟Word文档中的文本左、右对齐是一样的意思。左对齐即ADC转换的数值最高位D12与存储区域的最高位Bit15对齐，存储区域的低4位无意义。右对齐则相反，ADC转换的数值最低位D0保存在存储区域的最低位Bit0，高4位无意义。一般选择右对齐即可。
+<ul>
+<li><img src="15.png" class="lazyload" data-srcset="15.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt></li>
+</ul>
+</li>
+<li>DC_NbrOfChannel：这个成员保存了要进行ADC数据转换的通道数，可以为1～16个。</li>
+</ul>
+<h4 id="adc时钟配置">ADC时钟配置</h4>
+<p>ADC时钟频率越高，转换速度也就越快，但ADC时钟有上限值，即不能超过14 MHz。</p>
+<p><img src="16.png" class="lazyload" data-srcset="16.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt></p>
+<p>ADC的时钟（<em><strong>ADCCLK</strong></em>）为<em><strong>ADC预分频器</strong></em>的输出，而<em><strong>ADC预分频器</strong></em>的输入则为高速外设时钟（<em><strong>PCLK2</strong></em>）。使用<code>RCC_ADCCLKConfig()</code>库函数实质就是设置<em><strong>ADC预分频器</strong></em>的分频值，可设置为PCLK2的2、4、6、8分频。PCLK2的常用时钟频率为72 MHz，而<strong>ADCCLK必须低于14 MHz</strong>，所以在这个情况下，ADCCLK最高频率为PCLK2的8分频，即ADCCLK=9 MHz。若希望使ADC以最高频率14 MHz运行，可以把PCLK2配置为56 MHz，然后再4分频得到ADCCLK。ADC的转换时间不仅与ADC的时钟有关，还与采样周期相关。每个不同的ADC通道都可以设置为不同的采样周期。</p>
+<p><img src="17.png" class="lazyload" data-srcset="17.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt></p>
+<p>ADC_RegularChannelConfig()函数中的RANK值是指在多通道扫描模式时，本通道的扫描顺序。例如通道1、4、7的RANK值分别被配置为3、2、1的话，在ADC扫描时，扫描的顺序为通道7、通道4，最后扫描通道1。</p>
+<p>ADC_SampleTime的参数值则用于配置本通道的采样周期，最短可配置为1.5个采样周期，这里的周期指<em><strong>ADCCLK时钟周期</strong></em>。</p>
+<p>假设把ADC1通道11配置为55.5个采样周期，而ADCCLK在前面已经配置为9 MHz，根据STM32的ADC采样时间计算公式：</p>
+<p>TCONV=采样周期+12.5个周期</p>
+<p>公式中的采样周期就是本函数中配置的ADC_SampleTime，而后边加上的12.5个周期为固定的数值。所以，ADC1通道11的转换时间TCONV=（55.5+12.5）×1/9≈7.56μs。</p>
+<p>在开始ADC转换之前，需要启动ADC的自校准。ADC有一个内置自校准模式，校准可大幅减小因内部电容器组的变化而造成的准精度误差。在校准期间，在每个电容器上都会计算出一个误差修正码（数字值），这个码用于消除在随后的转换中每个电容器上产生的误差。</p>
+<h4 id="volatile-变量的使用">volatile 变量的使用</h4>
+<p>不使用volatile关键字修饰的变量a在被访问的时候可能会直接从CPU的寄存器中取出（因为之前变量a被访问过，也就是说之前就从内存中取出a的值保存到某个CPU寄存器中），之所以直接从寄存器中取值而不去内存中取值，这是编译器优化代码的结果（访问CPU寄存器比访问内存快得多）。这里的CPU寄存器指R0、R1等CPU通用寄存器，用于CPU运算及暂存数据的，不是指外设中的寄存器。用volatile声明的类型变量表示可以被某些编译器未知的因素更改，比如：操作系统、硬件或者其他线程等。因为ADC_ConvertedValue这个变量值随时都是会被DMA控制器改变的，所以我们用volatile来修饰它，确保每次读取到的都是实时的ADC转换值。</p>
+<h4 id="电压值转换公式">电压值转换公式</h4>
+<p>由转换值计算出来的电压值，其计算公式是ADC通用的：</p>
+<p>实际电压值=ADC转换值×LSB</p>
+<p>STM32的ADC的精度为12位，而配套板子中VREF+接的参考电压值为3.3V，所以LSB=3.3/2^12。</p>
+<p>即：ADC_ConvertedValueLocal=（float）ADC_ConvertedValue/4096*3.3；</p>
+<h2 id="systick">SysTick</h2>
+<p>SysTick定时器被捆绑在NVIC中，用于产生SysTick异常（异常号：15）。</p>
+<p>Cortex-M3在内核部分包含了一个简单的定时器——SysTick。因为所有的CM3芯片都带有这个定时器，软件在不同芯片生产厂商的CM3器件间的移植工作就得以简化。该定时器的时钟源可以是内部时钟（FCLK, CM3上的自由运行时钟），或者是外部时钟（CM3处理器上的STCLK信号）。不过，STCLK的具体来源则由芯片设计者决定，因此不同产品之间的时钟频率可能大不相同。因此，需要阅读芯片的使用手册来确定选择什么作为时钟源。在STM32中SysTick以HCLK（AHB时钟）或HCLK/8作为运行时钟。</p>
+<p><img src="18.png" class="lazyload" data-srcset="18.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt></p>
+<h3 id="systick配置">SysTick配置</h3>
+<p>要使SysTick进行以上工作必须要进行SysTick配置。它的控制配置很简单，只有三个控制位和一个标志位，都位于寄存器STK_CTRL（SysTick control and status register）中。</p>
+<ul>
+<li>
+<p>（1）Bit0：ENABLE为SysTick的使能位，此位为1的时候使能SysTick定时器，此位为0的时候关闭SysTick定时器。</p>
+</li>
+<li>
+<p>（2）Bit1：TICKINT为异常触发使能位，此位为1的时候并且STK_VAL计数至0时会触发SysTick异常，此位被配置为0的时候不触发异常。</p>
+</li>
+<li>
+<p>（3）Bit2：CLKSOURCE为SysTick的时钟选择位，此位为1时SysTick的时钟为AHB时钟，此位为0时SysTick时钟为AHB/8（AHB的8分频）。</p>
+</li>
+<li>
+<p>（4）Bit16：COUNTFLAG为计数为0标志位，若STK_VAL计数至0，此标志位会被置1。</p>
 </li>
 </ul>
+<h3 id="定时时间计算">定时时间计算</h3>
+<p>定时的时间，下面为计算公式：</p>
+<p>T=ticks×（1/f）</p>
+<p>其中，T为要定时的总时间；ticks为SysTick_Config()的输入参数，经过ticks个脉冲（经过ticks个时钟周期）后将触发中断，触发中断后又重新开始计数。；1/f即为SysTick使用的时钟源的时钟周期，f为该时钟源的时钟频率，当时钟源确定后为常数。</p>
+<h2 id="定时器">定时器</h2>
+<p>TM32一共有8个都为16位的定时器。其中TIM6、TIM7是基本定时器；TIM2、TIM3、TIM4、TIM5是通用定时器；TIM1和TIM8是高级定时器。这些定时器使STM32具有定时、信号的频率测量、信号的PWM测量、PWM输出、三相6步电机控制及编码器接口等功能。</p>
+<h3 id="基本定时器">基本定时器</h3>
+<p>基本定时器TIM6和TIM7只具备最基本的定时功能，就是累加的时钟脉冲数超过预定值时，能触发中断或触发DMA请求。由于在芯片内部与DAC外设相连，可通过触发输出驱动DAC，也可以作为其他通用定时器的时钟基准。</p>
+<p><img src="19.png" class="lazyload" data-srcset="19.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt></p>
+<p>两个基本定时器使用的时钟源都是TIMxCLK，时钟源经过PSC预分频器输入至脉冲计数器TIMx_CNT，基本定时器只能工作在向上计数模式，在重载寄存器TIMx_ARR中保存的是定时器的溢出值。工作时，脉冲计数器TIMx_CNT由时钟触发进行计数，当TIMx_CNT的计数值X等于重载寄存器TIMx_ARR中保存的数值N时，产生溢出事件，可触发中断或DMA请求。然后TIMx_CNT的值重新被置为0，重新向上计数。</p>
+<h3 id="通用定时器">通用定时器</h3>
+<p><img src="20.png" class="lazyload" data-srcset="20.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt></p>
+<p>通用定时器除了基本的定时，它主要用在测量输入脉冲的频率、脉冲宽与输出PWM脉冲的场合，还具有编码器的接口。</p>
+<p>通用定时器的基本计时功能与基本定时器的工作方式是一样的，同样把时钟源经过预分频器输出到脉冲计数器TIMx_CNT累加，溢出时就产生中断或DMA请求。而通用定时器比基本定时器多出的强大功能，就是因为通用定时器多出了一种寄存器——捕获/比较寄存器<em><strong>TIMx_CCR</strong></em>（capture/compare register），它在</p>
+<ol>
+<li>输入时被用于捕获（存储）输入脉冲在电平发生翻转时脉冲计数器TIMx_CNT的当前计数值，从而实现脉冲的频率测量；</li>
+<li>在输出时被用来存储一个脉冲数值，把这个数值用于与脉冲计数器TIMx_CNT的当前计数值进行比较，根据比较结果进行不同的电平输出。</li>
+</ol>
+<h4 id="pwm输出过程分析">PWM输出过程分析</h4>
+<p>通用定时器可以利用GPIO引脚进行脉冲输出，在配置为比较输出、PWM输出功能时，捕获/比较寄存器<em><strong>TIMx_CCR</strong></em>被用作比较功能，下面把它简称为比较寄存器。</p>
+<p>这里直接举例说明定时器的PWM输出工作过程：若配置脉冲计数器<em><strong>TIMx_CNT</strong></em>为向上计数，而重载寄存器<em><strong>TIMx_ARR</strong></em>被配置为N，即TIMx_CNT的当前计数值数值X在<em><strong>TIMxCLK时钟源</strong></em>的驱动下不断累加，当TIMx_CNT的数值<em><strong>X大于N</strong></em>时，会重置TIMx_CNT数值为0并重新计数。</p>
+<p>而在TIMx_CNT计数的同时，<em><strong>TIMx_CNT</strong></em>的计数值X会与比较寄存器<em><strong>TIMx_CCR</strong></em>预先存储的数值A进行比较。当脉冲计数器TIMx_CNT的数值X小于比较寄存器TIMx_CCR的值A时，输出高电平（或低电平）；相反地，当脉冲计数器的数值X大于或等于比较寄存器的值A时，输出低电平（或高电平）。如此循环，得到的输出脉冲周期就为重载寄存器TIMx_ARR存储的数值（N+1）乘以触发脉冲的时钟周期，其脉冲宽度则为比较寄存器TIMx_CCR的值A乘以触发脉冲的时钟周期，即<strong>输出PWM的占空比为A/（N+1）</strong>。</p>
+<h4 id="pwm输入过程分析">PWM输入过程分析</h4>
+<p>而当定时器被配置为输入功能时，可以用于检测输入到GPIO引脚的信号（频率检测、输入PWM检测），此时捕获/比较寄存器TIMx_CCR被用作捕获功能，下面把它简称为捕获寄存器。</p>
+<p><img src="21.png" class="lazyload" data-srcset="21.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt></p>
+<p>要测量的PWM脉冲通过GPIO引脚输入到定时器的脉冲检测通道，其时序为图中的TI1。把脉冲计数器TIMx_CNT配置为向上计数，重载寄存器TIMx_ARR的N值配置为足够大。在输入脉冲TI1的上升沿到达时，触发IC1和IC2输入捕获中断，这时把脉冲计数器TIMx_CNT的计数值复位为0，于是TIMx_CNT的计数值X在TIMxCLK的驱动下从0开始不断累加，直到TI1出现下降沿，触发IC2捕获事件，此时捕获寄存器TIMx_CCR2把脉冲计数器TIMx_CNT的当前值<br>
+2存储起来，而TIMx_CNT继续累加，直到TI1出现第二个上升沿，触发了IC1捕获事件，此时TIMx_CNT的当前计数值4被保存到TIMx_CCR1。很明显TIMx_CCR1（加1）的值乘以TIMxCLK的周期，即为待检测的PWM输入脉冲周期，TIMx_CCR2（加1）的值乘以TIMxCLK的周期，就是待检测的PWM输入脉冲的高电平时间，有了这两个数值就可以计算出PWM脉冲的频率、占空比了。</p>
+<h4 id="定时器的时钟源">定时器的时钟源</h4>
+<p>从时钟源方面来说，通用定时器比基本定时器多了一个选择，它可以使用外部脉冲作为定时器的时钟源。使用外部时钟源时，要使用寄存器进行触发边沿、滤波器带宽的配置。如果选择内部时钟源的话则与基本定时器一样，也为TIMxCLK。但要注意的是，所有定时器（包括基本、通用和高级）使用内部时钟时，定时器的时钟源都被称为TIMxCLK，但TIMxCLK的时钟来源并不是完全一样的。</p>
+<p><img src="STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93%5C22.png" class="lazyload" data-srcset="STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93%5C22.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt></p>
 
   </div>
   
@@ -2899,10 +3026,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2023-12-10T20:16:39+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2023-12-11T19:16:10+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2023年12月10日</p>
+    <p>更新于：2023年12月11日</p>
   </a>
 </div>
 
@@ -3040,7 +3167,7 @@ GPIO保护二极管的作用，但是只能抵御一瞬间电压波动，长时�
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F"><span class="toc-text">时钟系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D"><span class="toc-text">时钟系统介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%92%9F%E8%B5%B0%E5%90%91%E4%B8%BE%E4%BE%8B"><span class="toc-text">时钟走向举例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nvic%E4%B8%AD%E6%96%AD%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-text">NVIC中断控制器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E6%8E%A7%E5%88%B6%E5%99%A8%E4%BB%8B%E7%BB%8D"><span class="toc-text">中断控制器介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD"><span class="toc-text">配置外部中断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#afio"><span class="toc-text">AFIO</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1"><span class="toc-text">串口通信</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE"><span class="toc-text">异步串口通信协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E8%BF%87%E7%A8%8B"><span class="toc-text">数据传输过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%B2%E5%8F%A3%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B"><span class="toc-text">串口配置过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dma"><span class="toc-text">DMA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEdma%E5%BC%82%E6%AD%A5%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1"><span class="toc-text">配置DMA异步串口通信</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F"><span class="toc-text">时钟系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%92%9F%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D"><span class="toc-text">时钟系统介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%92%9F%E8%B5%B0%E5%90%91%E4%B8%BE%E4%BE%8B"><span class="toc-text">时钟走向举例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nvic%E4%B8%AD%E6%96%AD%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-text">NVIC中断控制器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E6%8E%A7%E5%88%B6%E5%99%A8%E4%BB%8B%E7%BB%8D"><span class="toc-text">中断控制器介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD"><span class="toc-text">配置外部中断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#afio"><span class="toc-text">AFIO</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1"><span class="toc-text">串口通信</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE"><span class="toc-text">异步串口通信协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E8%BF%87%E7%A8%8B"><span class="toc-text">数据传输过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%B2%E5%8F%A3%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B"><span class="toc-text">串口配置过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dma"><span class="toc-text">DMA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEdma%E5%BC%82%E6%AD%A5%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1"><span class="toc-text">配置DMA异步串口通信</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#adc"><span class="toc-text">ADC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#adc%E5%8F%82%E6%95%B0"><span class="toc-text">ADC参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="toc-text">工作模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#acd%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86dma%E6%A8%A1%E5%BC%8F"><span class="toc-text">ACD数据采集，DMA模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEadc"><span class="toc-text">配置ADC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#adc%E6%97%B6%E9%92%9F%E9%85%8D%E7%BD%AE"><span class="toc-text">ADC时钟配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#volatile-%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">volatile 变量的使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%B5%E5%8E%8B%E5%80%BC%E8%BD%AC%E6%8D%A2%E5%85%AC%E5%BC%8F"><span class="toc-text">电压值转换公式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#systick"><span class="toc-text">SysTick</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#systick%E9%85%8D%E7%BD%AE"><span class="toc-text">SysTick配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E6%97%B6%E6%97%B6%E9%97%B4%E8%AE%A1%E7%AE%97"><span class="toc-text">定时时间计算</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8"><span class="toc-text">定时器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%AE%9A%E6%97%B6%E5%99%A8"><span class="toc-text">基本定时器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E5%AE%9A%E6%97%B6%E5%99%A8"><span class="toc-text">通用定时器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#pwm%E8%BE%93%E5%87%BA%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90"><span class="toc-text">PWM输出过程分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pwm%E8%BE%93%E5%85%A5%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90"><span class="toc-text">PWM输入过程分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E7%9A%84%E6%97%B6%E9%92%9F%E6%BA%90"><span class="toc-text">定时器的时钟源</span></a></li></ol></li></ol></li></ol>
     </div>
   </section>
 
@@ -3726,7 +3853,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","sameAs":["https://github.com/volantis-x"],"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://dyzhou2001.github.io/","name":"碎流岛"}},{"@type":"ListItem","position":3,"item":{"@id":"https://dyzhou2001.github.io/2023/12/10/STM32主要部件配置总结/","name":"STM32主要部件配置总结"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"碎流岛","url":"https://dyzhou2001.github.io/","keywords":null,"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极","author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},"publisher":{"@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://dyzhou2001.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"STM32主要部件配置总结","description":"总结一些基本的知识，包括时钟树、外设等，主要说明需要配置的参数以及配置的方法。","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://dyzhou2001.github.io/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/"},"author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/"},"publisher":{"@type":"Organization","name":"碎流岛","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://dyzhou2001.github.io/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/","wordCount":0,"datePublished":"2023-12-10T10:39:41.000Z","dateModified":"2023-12-10T12:16:39.615Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","sameAs":["https://github.com/volantis-x"],"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://dyzhou2001.github.io/","name":"碎流岛"}},{"@type":"ListItem","position":3,"item":{"@id":"https://dyzhou2001.github.io/2023/12/10/STM32主要部件配置总结/","name":"STM32主要部件配置总结"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"碎流岛","url":"https://dyzhou2001.github.io/","keywords":null,"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极","author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},"publisher":{"@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://dyzhou2001.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"STM32主要部件配置总结","description":"总结一些基本的知识，包括时钟树、外设等，主要说明需要配置的参数以及配置的方法。","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://dyzhou2001.github.io/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/"},"author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/"},"publisher":{"@type":"Organization","name":"碎流岛","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://dyzhou2001.github.io/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/","wordCount":0,"datePublished":"2023-12-10T10:39:41.000Z","dateModified":"2023-12-11T11:16:10.486Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
