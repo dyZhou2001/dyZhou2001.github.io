@@ -45,7 +45,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2023-12-11T07:57:21.000Z">
-<meta property="article:modified_time" content="2023-12-11T11:30:52.665Z">
+<meta property="article:modified_time" content="2024-02-05T07:41:36.764Z">
 <meta property="article:author" content="Young Joe">
 <meta property="article:tag" content="STM32">
 <meta name="twitter:card" content="summary">
@@ -1908,7 +1908,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1702295888826),
+    lastupdate: new Date(1707120195998),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2769,9 +2769,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
-    <h2 id="gpio"><a href="#GPIO" class="headerlink" title="GPIO"></a>GPIO</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HAL_GPIO_Init(GPIO_TypeDef*,GPIO_InitTypeDef*) ;</span><br><span class="line">HAL_GPIO_DeInit(GPIO_TypeDef*,<span class="type">uint32_t</span>);</span><br><span class="line">HAL_GPIO_ReadPin(GPIO_TypeDef*,<span class="type">uint16_t</span>);</span><br><span class="line">HAL_GPIO_WritePin(GPIO_TypeDef*,<span class="type">uint16_t</span>,GPIO_PinState);</span><br><span class="line">HAL_GPIO_TogglePin(GPIO_TypeDef*,<span class="type">uint16_t</span>);</span><br><span class="line">HAL_GPIO_LockPin(GPIO_TypeDef*,<span class="type">uint16_t</span>);</span><br><span class="line">HAL_GPIO_EXTI_IRQHandler(<span class="type">uint16_t</span>);</span><br><span class="line">HAL_GPIO_EXTI_Callback(<span class="type">uint16_t</span>);</span><br></pre></td></tr></table></figure>
-
-
+    <h2 id="gpio">GPIO</h2>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HAL_GPIO_Init(GPIO_TypeDef*,GPIO_InitTypeDef*) ;</span><br><span class="line">HAL_GPIO_DeInit(GPIO_TypeDef*,<span class="type">uint32_t</span>);</span><br><span class="line">HAL_GPIO_ReadPin(GPIO_TypeDef*,<span class="type">uint16_t</span>);</span><br><span class="line">HAL_GPIO_WritePin(GPIO_TypeDef*,<span class="type">uint16_t</span>,GPIO_PinState);</span><br><span class="line">HAL_GPIO_TogglePin(GPIO_TypeDef*,<span class="type">uint16_t</span>);</span><br><span class="line">HAL_GPIO_LockPin(GPIO_TypeDef*,<span class="type">uint16_t</span>);</span><br><span class="line">HAL_GPIO_EXTI_IRQHandler(<span class="type">uint16_t</span>);</span><br><span class="line">HAL_GPIO_EXTI_Callback(<span class="type">uint16_t</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="tick">Tick</h2>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HAL_GetTick() <span class="comment">//返回时钟值，可以用来计时。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="抖动问题">抖动问题</h2>
+<p><img src="STM32HAL%E5%BA%93%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E6%B1%87%E6%80%BB%5C1.png" class="lazyload" data-srcset="STM32HAL%E5%BA%93%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E6%B1%87%E6%80%BB%5C1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt><br>
+伪代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (ReadPin==Set)</span><br><span class="line">&#123;</span><br><span class="line">    delay()</span><br><span class="line">    <span class="keyword">if</span>(ReadPin==Set)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">do</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
   </div>
   
   
@@ -2795,10 +2800,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2023-12-11T19:30:52+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2024-02-05T15:41:36+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2023年12月11日</p>
+    <p>更新于：2024年2月5日</p>
   </a>
 </div>
 
@@ -2878,6 +2883,23 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
+        <a class='prev' href='/2024/01/03/IIC%E9%80%9A%E4%BF%A1/'>
+          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>IIC通信</p>
+          <p class='content'>IIC通信
+特点
+
+半双工
+同步
+带数据应答
+一个总线挂载多设备
+两根通信线：SDL SCL
+
+IIC时序基本单元
+起始条件：SCL高电平期间，SDA从高电平切换到底电平
+
+终止条件：SCL高电...</p>
+        </a>
+      
       
         <a class='next' href='/2023/12/10/STM32%E4%B8%BB%E8%A6%81%E9%83%A8%E4%BB%B6%E9%85%8D%E7%BD%AE%E6%80%BB%E7%BB%93/'>
           <p class='title'>STM32主要部件配置总结<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
@@ -2943,7 +2965,7 @@ STM32有外部和内部时钟，每种又分为高速时钟和低速时钟，即
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#gpio"><span class="toc-text">GPIO</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#gpio"><span class="toc-text">GPIO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tick"><span class="toc-text">Tick</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%96%E5%8A%A8%E9%97%AE%E9%A2%98"><span class="toc-text">抖动问题</span></a></li></ol>
     </div>
   </section>
 
@@ -3629,7 +3651,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","sameAs":["https://github.com/volantis-x"],"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://dyzhou2001.github.io/","name":"碎流岛"}},{"@type":"ListItem","position":3,"item":{"@id":"https://dyzhou2001.github.io/2023/12/11/STM32HAL库常用指令汇总/","name":"STM32HAL库常用指令汇总"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"碎流岛","url":"https://dyzhou2001.github.io/","keywords":null,"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极","author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},"publisher":{"@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://dyzhou2001.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"STM32HAL库常用指令汇总","description":"STM32HAL库指令汇总，了解基本原理以后对照操作外设使用。","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://dyzhou2001.github.io/2023/12/11/STM32HAL%E5%BA%93%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E6%B1%87%E6%80%BB/"},"author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/"},"publisher":{"@type":"Organization","name":"碎流岛","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://dyzhou2001.github.io/2023/12/11/STM32HAL%E5%BA%93%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E6%B1%87%E6%80%BB/","wordCount":0,"datePublished":"2023-12-11T07:57:21.000Z","dateModified":"2023-12-11T11:30:52.665Z","keywords":"STM32","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","sameAs":["https://github.com/volantis-x"],"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://dyzhou2001.github.io/","name":"碎流岛"}},{"@type":"ListItem","position":3,"item":{"@id":"https://dyzhou2001.github.io/2023/12/11/STM32HAL库常用指令汇总/","name":"STM32HAL库常用指令汇总"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"碎流岛","url":"https://dyzhou2001.github.io/","keywords":null,"description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极","author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/","description":"记录一些细碎日常，生命永是流逝，我们每个人都是一座孤岛，死亡与孤独才是终极"},"publisher":{"@type":"Organization","name":"碎流岛","url":"https://dyzhou2001.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://dyzhou2001.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"STM32HAL库常用指令汇总","description":"STM32HAL库指令汇总，了解基本原理以后对照操作外设使用。","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https://dyzhou2001.github.io/2023/12/11/STM32HAL%E5%BA%93%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E6%B1%87%E6%80%BB/"},"author":{"@type":"Person","name":"Young Joe","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://dyzhou2001.github.io/"},"publisher":{"@type":"Organization","name":"碎流岛","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://dyzhou2001.github.io/2023/12/11/STM32HAL%E5%BA%93%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E6%B1%87%E6%80%BB/","wordCount":0,"datePublished":"2023-12-11T07:57:21.000Z","dateModified":"2024-02-05T07:41:36.764Z","keywords":"STM32","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
